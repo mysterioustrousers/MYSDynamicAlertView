@@ -40,21 +40,23 @@ typedef void (^ActionBlock)();
     CGFloat viewHeight  = self.view.bounds.size.height;
     CGFloat width       = 0;
     CGFloat height      = 0;
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        width   = viewWidth  / 2;
-        height  = viewHeight / 4;
+        width   = viewWidth  / 3;
+        height  = viewHeight / 8;
     }
     else {
-        width   = viewWidth - viewWidth * 0.1;
-        height  = viewHeight / 2;
+        width   = viewWidth - viewWidth * 0.15;
+        height  = viewHeight / 4.5;
     }
     
     // randomly snap in.
-    int N           = viewWidth * 4;
-    int r           = arc4random_uniform(N) - viewWidth * 2;
+    int N   = viewWidth * 4;
+    int r   = arc4random_uniform(N) - viewWidth * 2;
     
     UIView *viewToDrag = [[UIView alloc] initWithFrame:CGRectMake(r, -self.view.bounds.size.height, width, height)];
-    viewToDrag.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.8];
+    viewToDrag.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    [self roundCorner:viewToDrag corners:UIRectCornerAllCorners];
     [self.view addSubview:viewToDrag];
     
     UIGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
@@ -62,9 +64,14 @@ typedef void (^ActionBlock)();
     
     [self.otherWindow makeKeyAndVisible];
     
-    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:viewToDrag snapToPoint:self.view.center];
+    self.animator           = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:viewToDrag snapToPoint:self.view.center];
     [self.animator addBehavior:snap];
+    
+    self.view.backgroundColor = [UIColor clearColor];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.4];
+    }];
 }
 
 - (void)setDismissBlock:(void (^)(void))block direction:(MYSTossAlertViewDirection)direction
@@ -111,10 +118,9 @@ typedef void (^ActionBlock)();
     {
         [self.animator removeAllBehaviors];
         
-        startCenter = gesture.view.center;
+        startCenter = gesture.view.superview.center;
         
         // calculate the center offset and anchor point
-        
         CGPoint pointWithinAnimatedView = [gesture locationInView:gesture.view];
         UIOffset offset                 = UIOffsetMake(pointWithinAnimatedView.x - gesture.view.bounds.size.width / 2.0,
                                                        pointWithinAnimatedView.y - gesture.view.bounds.size.height / 2.0);
@@ -122,7 +128,6 @@ typedef void (^ActionBlock)();
         CGPoint anchor                  = [gesture locationInView:gesture.view.superview];
         
         // create attachment behavior
-        
         attachment = [[UIAttachmentBehavior alloc] initWithItem:gesture.view
                                                offsetFromCenter:offset
                                                attachedToAnchor:anchor];
@@ -141,8 +146,6 @@ typedef void (^ActionBlock)();
             }
         };
         
-        // add attachment behavior
-        
         [self.animator addBehavior:attachment];
     }
     else if (gesture.state == UIGestureRecognizerStateChanged)
@@ -160,9 +163,8 @@ typedef void (^ActionBlock)();
         int down            = 270;
         int right           = 0;
         
-        CGPoint velocity = [gesture velocityInView:gesture.view.superview];
-        
-        double angle = atan2(velocity.y, velocity.x) * -180.0f / 3.14159f; // just use degrees
+        CGPoint velocity    = [gesture velocityInView:gesture.view.superview];
+        double angle        = atan2(velocity.y, velocity.x) * -180.0f / 3.14159f;       // just use degrees
         if (angle < 0) angle += 360.0f;
         
         // if there direction enum exists in the dictionary allow it to be dismissed that direction
@@ -171,18 +173,19 @@ typedef void (^ActionBlock)();
         BOOL isDown     = (angle <= down + self.angleDegreeAllowance) && (angle > down - self.angleDegreeAllowance) && self.blockDictionary[@(MYSTossAlertViewDirectionDown)];
         BOOL isRight    = (((angle <= right + self.angleDegreeAllowance) && (angle >= right)) || (angle > right + 360 - self.angleDegreeAllowance)) && self.blockDictionary[@(MYSTossAlertViewDirectionRight)];
         
-        NSLog(@"angle: %f right: %d left: %d up: %d down: %d", angle, isRight, isLeft, isUp, isDown);
+        //NSLog(@"angle: %f right: %d left: %d up: %d down: %d", angle, isRight, isLeft, isUp, isDown);
         
         // snap it back if it doesn't match the direction restraints
         if ((!isLeft && !isRight && !isUp && !isDown) || (fabs(velocity.x) < self.speedLimit && (isRight || isLeft)) || (fabs(velocity.y) < self.speedLimit && (isUp || isDown))) {
             UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:gesture.view snapToPoint:startCenter];
             [self.animator addBehavior:snap];
-            
+            [UIView animateWithDuration:0.3 animations:^{
+                self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.4];
+            }];
             return;
         }
         
         // otherwise, create UIDynamicItemBehavior that carries on animation from where the gesture left off (notably linear and angular velocity)
-        
         UIDynamicItemBehavior *dynamic = [[UIDynamicItemBehavior alloc] initWithItems:@[gesture.view]];
         [dynamic addLinearVelocity:velocity forItem:gesture.view];
         [dynamic addAngularVelocity:angularVelocity forItem:gesture.view];
@@ -192,6 +195,10 @@ typedef void (^ActionBlock)();
         UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[gesture.view] mode:UIPushBehaviorModeContinuous];
         push.pushDirection = CGVectorMake(velocity.x * 0.3, velocity.y * 0.3);
         [self.animator addBehavior:push];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.backgroundColor = [UIColor clearColor];
+        }];
         
         NSNumber *key = nil;
         if (isRight)
@@ -210,8 +217,8 @@ typedef void (^ActionBlock)();
             if (!CGRectIntersectsRect(gesture.view.superview.bounds, gesture.view.frame)) {
                 [self.animator removeAllBehaviors];
                 [gesture.view removeFromSuperview];
-                self.otherWindow.hidden = YES;
-                self.otherWindow = nil;
+                self.otherWindow.hidden             = YES;
+                self.otherWindow                    = nil;
                 if (block) block();
             }
         };
@@ -224,6 +231,18 @@ typedef void (^ActionBlock)();
     // http://stackoverflow.com/a/2051861/1271826
     
     return atan2(view.transform.b, view.transform.a);
+}
+
+- (void)roundCorner:(UIView *)view corners:(UIRectCorner)corners
+{
+    UIBezierPath *maskPath;
+    maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds
+                                     byRoundingCorners: corners
+                                           cornerRadii:CGSizeMake(10.0, 10.0)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame         = view.bounds;
+    maskLayer.path          = maskPath.CGPath;
+    view.layer.mask         = maskLayer;
 }
 
 @end
