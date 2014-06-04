@@ -1,0 +1,14 @@
+PODS:
+  - MYSDynamicAlertView (0.0.1)
+
+DEPENDENCIES:
+  - MYSDynamicAlertView (from `../`)
+
+EXTERNAL SOURCES:
+  MYSDynamicAlertView:
+    :path: ../
+
+SPEC CHECKSUMS:
+  MYSDynamicAlertView: b7442428bf7c7dde4de1486cf78884d849993605
+
+COCOAPODS: 0.33.1

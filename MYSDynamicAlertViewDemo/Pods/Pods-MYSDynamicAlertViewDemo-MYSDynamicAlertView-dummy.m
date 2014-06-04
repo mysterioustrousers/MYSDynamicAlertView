@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_MYSDynamicAlertViewDemo_MYSDynamicAlertView : NSObject
+@end
+@implementation PodsDummy_Pods_MYSDynamicAlertViewDemo_MYSDynamicAlertView
+@end
