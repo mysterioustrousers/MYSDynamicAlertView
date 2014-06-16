@@ -12,6 +12,7 @@ typedef void (^ActionBlock)();
 #define NUL(a) (a ?: [NSNull null]) // swaps nil with NSNull
 
 #import "MYSDynamicAlertView.h"
+#import "MYSBackDropView.h"
 
 
 @interface MYSDynamicAlertView ()
@@ -20,6 +21,7 @@ typedef void (^ActionBlock)();
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
 @property (nonatomic, assign) CGFloat speedLimit; // velocity needed to cause dismissal
 @property (nonatomic, assign) CGFloat angleDegreeAllowance; // E.g. angleAllowance = 30 gestures in the left direction will be dimissed at 180 degrees +/- 30
+@property (nonatomic, strong) MYSBackDropView *backDropView;
 @end
 
 
@@ -55,11 +57,17 @@ typedef void (^ActionBlock)();
     // randomly snap in.
     int N   = viewWidth * 4;
     int r   = arc4random_uniform(N) - viewWidth * 2;
+    self.backDropView = [[MYSBackDropView alloc] initWithFrame:CGRectMake(r, -self.view.bounds.size.height, width, height)];
+    self.backDropView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    [self roundCorner:self.backDropView corners:UIRectCornerAllCorners];
+    [self.view addSubview:self.backDropView];
+    
     
     UIView *viewToDrag = [[UIView alloc] initWithFrame:CGRectMake(r, -self.view.bounds.size.height, width, height)];
     viewToDrag.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     [self roundCorner:viewToDrag corners:UIRectCornerAllCorners];
     [self.view addSubview:viewToDrag];
+    
     
     // Top
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.size.width/2, viewToDrag.bounds.origin.y, 15, 20)];
@@ -85,6 +93,9 @@ typedef void (^ActionBlock)();
     
     self.animator           = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:viewToDrag snapToPoint:self.view.center];
+    [self.animator addBehavior:snap];
+    
+    snap    = [[UISnapBehavior alloc] initWithItem:self.backDropView snapToPoint:self.view.center];
     [self.animator addBehavior:snap];
     
     self.view.backgroundColor = [UIColor clearColor];
@@ -179,6 +190,37 @@ typedef void (^ActionBlock)();
     {
         // as user makes gesture, update attachment behavior's anchor point, achieving drag 'n' rotate
         CGPoint anchor          = [gesture locationInView:gesture.view.superview];
+        double stretchAmount = 60;
+        // Left
+        if (self.view.center.x - anchor.x > stretchAmount) {
+            NSLog(@"Left %@", NSStringFromCGPoint(anchor));
+            [self.backDropView.rightLabel setFont:[UIFont boldSystemFontOfSize:18]];
+            [self.backDropView.leftLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.upLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.downLabel setFont:[UIFont systemFontOfSize:17]];
+ 
+        }
+        else if (self.view.center.x - anchor.x < stretchAmount * -1) {
+            NSLog(@"Right %@", NSStringFromCGPoint(anchor));
+            [self.backDropView.leftLabel setFont:[UIFont boldSystemFontOfSize:18]];
+            [self.backDropView.rightLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.upLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.downLabel setFont:[UIFont systemFontOfSize:17]];
+        }
+        else if (self.view.center.y - anchor.y > stretchAmount) {
+            NSLog(@"Up %@", NSStringFromCGPoint(anchor));
+            [self.backDropView.downLabel setFont:[UIFont boldSystemFontOfSize:18]];
+            [self.backDropView.rightLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.upLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.leftLabel setFont:[UIFont systemFontOfSize:17]];
+        }
+        else if (self.view.center.y - anchor.y < stretchAmount * -1) {
+            NSLog(@"Down %@", NSStringFromCGPoint(anchor));
+            [self.backDropView.upLabel setFont:[UIFont boldSystemFontOfSize:18]];
+            [self.backDropView.rightLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.downLabel setFont:[UIFont systemFontOfSize:17]];
+            [self.backDropView.leftLabel setFont:[UIFont systemFontOfSize:17]];
+        }
         attachment.anchorPoint  = anchor;
     }
     else if (gesture.state == UIGestureRecognizerStateEnded)
