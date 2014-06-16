@@ -34,6 +34,7 @@
     [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Left"; } direction:MYSTossAlertViewDirectionLeft];
     [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Right"; } direction:MYSTossAlertViewDirectionRight];
     [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Up"; } direction:MYSTossAlertViewDirectionUp];
+    [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Down"; } direction:MYSTossAlertViewDirectionDown];
     //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
     [tossAlert show];
     
