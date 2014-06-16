@@ -41,6 +41,7 @@ typedef void (^ActionBlock)();
     CGFloat width       = 0;
     CGFloat height      = 0;
     
+    // TODO figure out better way to size 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         width   = viewWidth  / 3;
         height  = viewHeight / 8;
@@ -50,6 +51,7 @@ typedef void (^ActionBlock)();
         height  = viewHeight / 4.5;
     }
     
+    
     // randomly snap in.
     int N   = viewWidth * 4;
     int r   = arc4random_uniform(N) - viewWidth * 2;
@@ -58,6 +60,23 @@ typedef void (^ActionBlock)();
     viewToDrag.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     [self roundCorner:viewToDrag corners:UIRectCornerAllCorners];
     [self.view addSubview:viewToDrag];
+    
+    // Top
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.size.width/2, viewToDrag.bounds.origin.y, 15, 20)];
+    label.text = @"^";
+    [viewToDrag addSubview:label];
+    // Left
+    label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.origin.x, viewToDrag.bounds.size.height/2 - 10,15, 20)];
+    label.text = @"<";
+    [viewToDrag addSubview:label];
+    // Right
+    label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.size.width - 15, viewToDrag.bounds.size.height/2 -10,15, 20)];
+    label.text = @">";
+    [viewToDrag addSubview:label];
+    // Down
+    label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.size.width/2, viewToDrag.bounds.size.height - 20,15, 20)];
+    label.text = @"v";
+    [viewToDrag addSubview:label];
     
     UIGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [viewToDrag addGestureRecognizer:pan];
@@ -100,6 +119,14 @@ typedef void (^ActionBlock)();
 
 
 # pragma mark - Private
+
+- (void)addLabelWithFrame:(CGRect)frame
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+    label.backgroundColor = [UIColor redColor];
+    label.text = @"<";
+    [self.view addSubview:label];
+}
 
 - (void)handlePan:(UIPanGestureRecognizer *)gesture
 {
