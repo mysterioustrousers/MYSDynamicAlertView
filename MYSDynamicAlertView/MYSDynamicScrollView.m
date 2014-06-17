@@ -15,10 +15,10 @@
     if ((self = [super initWithFrame:aRect])) {
         self.backgroundColor = [UIColor clearColor];
         CGFloat width   = self.bounds.size.width - self.bounds.size.width * 0.15;
-        CGFloat height  = self.bounds.size.height / 4.5;
+        CGFloat height  = self.bounds.size.height / 2.5;
         self.contentView = [[MYSContentView alloc] initWithFrame:CGRectMake(self.center.x - width/2, self.center.y - height/2, width, height + 1)];
         self.contentView.center = self.center;
-        self.contentView.tag = 200;
+        self.contentView.contentView.tag = 200;
         
         [self addSubview:self.contentView];
         
@@ -47,6 +47,5 @@
     
     return YES;
 }
-
 
 @end

@@ -27,19 +27,20 @@
         self.upLabel.text = @"Ok";
         self.upLabel.textAlignment = NSTextAlignmentCenter;
         self.upLabel.center = self.center;
-        [self addSubview:self.upLabel];
+        //[self addSubview:self.upLabel];
         // Down
         self.downLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y + subHeight * 2, width, subHeight)];
         self.downLabel.text = @"Cancel";
         self.downLabel.textAlignment = NSTextAlignmentCenter;
         self.downLabel.center = self.center;
-        [self addSubview:self.downLabel];
+        //[self addSubview:self.downLabel];
     }
     return self;
 }
 
 - (void)snapOut
 {
+    /*
     [self.animator removeAllBehaviors];
     self.upLabel.hidden = NO;
     self.downLabel.hidden = NO;
@@ -48,11 +49,13 @@
     [self.animator addBehavior:snap];
     snap    = [[UISnapBehavior alloc] initWithItem:self.downLabel snapToPoint:CGPointMake(self.center.x,self.frame.origin.y +  self.frame.size.height - subHeight)];
     [self.animator addBehavior:snap];
+     */
  
 }
 
 - (void)snapIn
 {
+    /*
     [self.animator removeAllBehaviors];
     UISnapBehavior *snap            = [[UISnapBehavior alloc] initWithItem:self.upLabel snapToPoint:self.center];
     snap.action = ^{
@@ -72,6 +75,7 @@
         };
     };
     [self.animator addBehavior:snap];
+     */
 }
 
 

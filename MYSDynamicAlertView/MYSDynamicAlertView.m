@@ -86,7 +86,7 @@ typedef void (^ActionBlock)();
     UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:self.viewToDrag snapToPoint:self.view.center];
     [self.animator addBehavior:snap];
     
-    self.backDropView.animator = self.animator;
+    self.viewToDrag.contentView.animator = self.animator;
     //snap    = [[UISnapBehavior alloc] initWithItem:self.backDropView snapToPoint:self.view.center];
     //[self.animator addBehavior:snap];
     
@@ -94,6 +94,8 @@ typedef void (^ActionBlock)();
     [UIView animateWithDuration:0.3 animations:^{
         self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.4];
     }];
+    
+    
 }
 
 - (void)setDismissBlock:(void (^)(void))block direction:(MYSTossAlertViewDirection)direction
@@ -110,10 +112,6 @@ typedef void (^ActionBlock)();
 {
     [self.backDropView snapOut];
     
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIAttachmentBehavior* attach = [[UIAttachmentBehavior alloc] initWithItem:self.backDropView.upLabel attachedToAnchor:self.viewToDrag.contentView.center];
-    [_animator addBehavior:attach];
-        });
 }
 
 
@@ -129,29 +127,39 @@ typedef void (^ActionBlock)();
 
 
 #pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.viewToDrag.contentView snapOut];
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGPoint viewCenter = [self.view.window convertPoint:self.view.center fromView:self.view];
+    CGPoint contentCenter = [self.view.window convertPoint:self.viewToDrag.contentView.center fromView:self.viewToDrag];
+    CGFloat offset = viewCenter.y - contentCenter.y;
+    NSLog(@"%f", offset);
+    self.viewToDrag.contentView.offset = offset;
+    //[self.viewToDrag.contentView snapOut];
+    
+}
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     CGRect frame = [self.view convertRect:self.viewToDrag.contentView.bounds fromView:self.viewToDrag.contentView];
     
-    self.viewToDrag.contentView.hidden = YES;
-    self.animatedContentView = [[MYSContentView alloc] initWithFrame:frame];
-    self.animatedContentView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    [self.view addSubview:self.animatedContentView];
-        UIDynamicItemBehavior *friction = [[UIDynamicItemBehavior alloc] initWithItems:@[self.animatedContentView]];
-    friction.allowsRotation = NO;
-    [self.animator addBehavior:friction];
-    UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:self.animatedContentView snapToPoint:self.view.center];
-    snap.damping = 0.1;
-    [self.animator addBehavior:snap];
-    
+    CGPoint viewCenter = [self.view.window convertPoint:self.view.center fromView:self.view];
+    CGPoint contentCenter = [self.view.window convertPoint:self.viewToDrag.contentView.center fromView:self.viewToDrag];
+    CGFloat offset = viewCenter.y - contentCenter.y;
+    NSLog(@"%f", offset);
+    if (fabs(offset) > 50) {
+        [self.viewToDrag.contentView launch:offset];
+    }
+    else {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.viewToDrag.contentView.hidden = NO;
-            self.viewToDrag.contentView.center = self.view.center;
-            [self.animatedContentView removeFromSuperview];
-            [self.backDropView snapIn];
+            [self.viewToDrag.contentView snapIn];
         });
-    
+    }
 }
 
 

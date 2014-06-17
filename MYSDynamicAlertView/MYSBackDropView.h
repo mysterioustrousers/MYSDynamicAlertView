@@ -16,5 +16,5 @@
 @property (nonatomic, weak) UIDynamicAnimator *animator;
 
 - (void)snapOut;
-- (void)snapOut;
+- (void)snapIn;
 @end
