@@ -7,178 +7,207 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		164C0A59ACC54E19B3951282 /* MYSDynamicAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7411095194AF4C2D870E8A90 /* MYSDynamicAlertView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		37BD61F9194F4FE3006B0818 /* MYSBackDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BD61F8194F4FE3006B0818 /* MYSBackDropView.m */; };
-		5010469A0A0F40F492AD1164 /* Pods-MYSDynamicAlertViewDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9036489AD9FE481D8E06C3CB /* Pods-MYSDynamicAlertViewDemo-dummy.m */; };
-		62AB39DBA89B45F4A623C3E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B64AA988446A4697BFA80CFC /* Foundation.framework */; };
-		77CCA6BCAD4C414E812BACAD /* MYSDynamicAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = C63BC0EEB4C04993B1495EB2 /* MYSDynamicAlertView.h */; };
-		C61AF6CE0D2E406B8DF9E9F4 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642906BF363340BA8C7DD1E4 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */; };
-		DF8523800F2B4A59B7B86520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B64AA988446A4697BFA80CFC /* Foundation.framework */; };
-		E12C3452A8C04DF89CFC5BB8 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B96EE785604710ACBE7117 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m */; };
+		20A0E4C712D046E2B330801A /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFF51704B02479CB996DBC9 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */; };
+		295DEFB5D1764C7D8E6D294B /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AF127D35C390446D81C8033A /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m */; };
+		370F731619508B0D00293D38 /* MYSContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370F731519508B0D00293D38 /* MYSContentView.m */; };
+		3798B2D0194FB42A003B92D0 /* MYSDynamicScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3798B2CF194FB42A003B92D0 /* MYSDynamicScrollView.m */; };
+		3D4136C63DBD4FA09306B699 /* Pods-MYSDynamicAlertViewDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24B6B1B1854DD3969565CA /* Pods-MYSDynamicAlertViewDemo-dummy.m */; };
+		542EA5360E1E4AD3ABD3D9CF /* MYSBackDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F6502F7C62437BA60E78B3 /* MYSBackDropView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		8892BCBEB0D7452BB4AC23AC /* MYSDynamicAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F92E7EC5BBAC4B388CED6533 /* MYSDynamicAlertView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		9B22445C78C841D89F422642 /* MYSDynamicAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = E9B40F8BD5E6403D953F2B6D /* MYSDynamicAlertView.h */; };
+		A197900EBF7A4C01AEC2750B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552349D5EBC848D79BE9FE11 /* Foundation.framework */; };
+		A6424160A61A4F5D9DADEF54 /* MYSBackDropView.h in Headers */ = {isa = PBXBuildFile; fileRef = F9C5571949CB4E6180DD9AB5 /* MYSBackDropView.h */; };
+		C83A6F56682D406E8F054012 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552349D5EBC848D79BE9FE11 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D396FDF4EC3C425BABB1CBF1 /* PBXContainerItemProxy */ = {
+		9664AA19EA254BE380AF6002 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 62CAAEBCF599478FB03ADBED /* Project object */;
+			containerPortal = C42B315890004D36AEE4C6E6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6C25BC29E57A4A448D320464;
+			remoteGlobalIDString = C94ECC7304C3405AB3185EAE;
 			remoteInfo = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05C41EBA44D94345B3E7BEE6 /* Pods-MYSDynamicAlertViewDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MYSDynamicAlertViewDemo-acknowledgements.plist"; sourceTree = "<group>"; };
-		28D86051B2E3448795DEE3D1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MYSDynamicAlertViewDemo.xcconfig"; sourceTree = "<group>"; };
-		37BD61F7194F4FE3006B0818 /* MYSBackDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYSBackDropView.h; sourceTree = "<group>"; };
-		37BD61F8194F4FE3006B0818 /* MYSBackDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYSBackDropView.m; sourceTree = "<group>"; };
-		3BF2473F3B15475CA4FE32CF /* Pods-MYSDynamicAlertViewDemo-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MYSDynamicAlertViewDemo-environment.h"; sourceTree = "<group>"; };
-		642906BF363340BA8C7DD1E4 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		719D9717EEE74E1C90194EFD /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch"; sourceTree = "<group>"; };
-		7411095194AF4C2D870E8A90 /* MYSDynamicAlertView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MYSDynamicAlertView.m; path = MYSDynamicAlertView/MYSDynamicAlertView.m; sourceTree = "<group>"; };
-		768C217C69EC42F783098F06 /* Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		9036489AD9FE481D8E06C3CB /* Pods-MYSDynamicAlertViewDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MYSDynamicAlertViewDemo-dummy.m"; sourceTree = "<group>"; };
-		A2B96EE785604710ACBE7117 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m"; sourceTree = "<group>"; };
-		B5FE475D441C4E4A8C21A317 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B64AA988446A4697BFA80CFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		C63BC0EEB4C04993B1495EB2 /* MYSDynamicAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MYSDynamicAlertView.h; path = MYSDynamicAlertView/MYSDynamicAlertView.h; sourceTree = "<group>"; };
-		F1195BF58B324F56A00B1A76 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig"; sourceTree = "<group>"; };
-		F4B449221800458D8F8908F6 /* libPods-MYSDynamicAlertViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MYSDynamicAlertViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8447604F7AD46D3892223EA /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.xcconfig"; sourceTree = "<group>"; };
-		FF3B7824E6D64E92B5B4B337 /* Pods-MYSDynamicAlertViewDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MYSDynamicAlertViewDemo-resources.sh"; sourceTree = "<group>"; };
+		00F6502F7C62437BA60E78B3 /* MYSBackDropView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MYSBackDropView.m; path = MYSDynamicAlertView/MYSBackDropView.m; sourceTree = "<group>"; };
+		23240B93EBB845AB927E896D /* Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		370F731419508B0D00293D38 /* MYSContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYSContentView.h; path = MYSDynamicAlertView/MYSContentView.h; sourceTree = "<group>"; };
+		370F731519508B0D00293D38 /* MYSContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYSContentView.m; path = MYSDynamicAlertView/MYSContentView.m; sourceTree = "<group>"; };
+		3798B2CE194FB42A003B92D0 /* MYSDynamicScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYSDynamicScrollView.h; path = MYSDynamicAlertView/MYSDynamicScrollView.h; sourceTree = "<group>"; };
+		3798B2CF194FB42A003B92D0 /* MYSDynamicScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYSDynamicScrollView.m; path = MYSDynamicAlertView/MYSDynamicScrollView.m; sourceTree = "<group>"; };
+		4696AFF2239B4B28861BEA96 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch"; sourceTree = "<group>"; };
+		4C24B6B1B1854DD3969565CA /* Pods-MYSDynamicAlertViewDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MYSDynamicAlertViewDemo-dummy.m"; sourceTree = "<group>"; };
+		552349D5EBC848D79BE9FE11 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		8BFA650A7BB245669154F2FE /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.xcconfig"; sourceTree = "<group>"; };
+		AF127D35C390446D81C8033A /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m"; sourceTree = "<group>"; };
+		B34CE385B8114E64B93C04CF /* Pods-MYSDynamicAlertViewDemo-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MYSDynamicAlertViewDemo-environment.h"; sourceTree = "<group>"; };
+		CCF4B7DDBA9743B191339DFF /* Pods-MYSDynamicAlertViewDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MYSDynamicAlertViewDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		CFD2CEC8884C416C817D9AD1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MYSDynamicAlertViewDemo.xcconfig"; sourceTree = "<group>"; };
+		D64AB64B1ED64AC88F61370D /* Pods-MYSDynamicAlertViewDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MYSDynamicAlertViewDemo-resources.sh"; sourceTree = "<group>"; };
+		DAFF51704B02479CB996DBC9 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9B40F8BD5E6403D953F2B6D /* MYSDynamicAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MYSDynamicAlertView.h; path = MYSDynamicAlertView/MYSDynamicAlertView.h; sourceTree = "<group>"; };
+		F92E7EC5BBAC4B388CED6533 /* MYSDynamicAlertView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MYSDynamicAlertView.m; path = MYSDynamicAlertView/MYSDynamicAlertView.m; sourceTree = "<group>"; };
+		F931C534620642E7B1DE36E0 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F9C5571949CB4E6180DD9AB5 /* MYSBackDropView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MYSBackDropView.h; path = MYSDynamicAlertView/MYSBackDropView.h; sourceTree = "<group>"; };
+		FA33733F612147AAA9F1A300 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig"; sourceTree = "<group>"; };
+		FFC4A034BE9B42639C882815 /* libPods-MYSDynamicAlertViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MYSDynamicAlertViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		16F7FA2EB14648ECA2C679BF /* Frameworks */ = {
+		64811C06AD2D4F3684C7994E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62AB39DBA89B45F4A623C3E5 /* Foundation.framework in Frameworks */,
-				C61AF6CE0D2E406B8DF9E9F4 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a in Frameworks */,
+				C83A6F56682D406E8F054012 /* Foundation.framework in Frameworks */,
+				20A0E4C712D046E2B330801A /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D75CAADA956F45C4876ACD06 /* Frameworks */ = {
+		C5392DF750C042198B75BBD7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8523800F2B4A59B7B86520 /* Foundation.framework in Frameworks */,
+				A197900EBF7A4C01AEC2750B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0DBFA043A8EA464EB18F0463 /* Development Pods */ = {
+		09392466F45446C7A58C1512 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0F91B9E3DB7B4054B9323A1F /* MYSDynamicAlertView */,
+				8BFA650A7BB245669154F2FE /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.xcconfig */,
+				FA33733F612147AAA9F1A300 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */,
+				AF127D35C390446D81C8033A /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m */,
+				4696AFF2239B4B28861BEA96 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch */,
 			);
-			name = "Development Pods";
+			name = "Support Files";
+			sourceTree = SOURCE_ROOT;
+		};
+		0DAC7C0432F4463799CE540D /* Pods-MYSDynamicAlertViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				CFD2CEC8884C416C817D9AD1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */,
+				23240B93EBB845AB927E896D /* Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown */,
+				CCF4B7DDBA9743B191339DFF /* Pods-MYSDynamicAlertViewDemo-acknowledgements.plist */,
+				4C24B6B1B1854DD3969565CA /* Pods-MYSDynamicAlertViewDemo-dummy.m */,
+				B34CE385B8114E64B93C04CF /* Pods-MYSDynamicAlertViewDemo-environment.h */,
+				D64AB64B1ED64AC88F61370D /* Pods-MYSDynamicAlertViewDemo-resources.sh */,
+			);
+			name = "Pods-MYSDynamicAlertViewDemo";
 			sourceTree = "<group>";
 		};
-		0F91B9E3DB7B4054B9323A1F /* MYSDynamicAlertView */ = {
+		1ED790881F5C421D94F27FD8 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				C63BC0EEB4C04993B1495EB2 /* MYSDynamicAlertView.h */,
-				7411095194AF4C2D870E8A90 /* MYSDynamicAlertView.m */,
-				37BD61F7194F4FE3006B0818 /* MYSBackDropView.h */,
-				37BD61F8194F4FE3006B0818 /* MYSBackDropView.m */,
-				CE38484E31CA48759BD620E5 /* Support Files */,
+				0DAC7C0432F4463799CE540D /* Pods-MYSDynamicAlertViewDemo */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		416720CC72E04E959D35BF74 /* MYSDynamicAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				F9C5571949CB4E6180DD9AB5 /* MYSBackDropView.h */,
+				00F6502F7C62437BA60E78B3 /* MYSBackDropView.m */,
+				E9B40F8BD5E6403D953F2B6D /* MYSDynamicAlertView.h */,
+				F92E7EC5BBAC4B388CED6533 /* MYSDynamicAlertView.m */,
+				3798B2CE194FB42A003B92D0 /* MYSDynamicScrollView.h */,
+				3798B2CF194FB42A003B92D0 /* MYSDynamicScrollView.m */,
+				370F731419508B0D00293D38 /* MYSContentView.h */,
+				370F731519508B0D00293D38 /* MYSContentView.m */,
+				09392466F45446C7A58C1512 /* Support Files */,
 			);
 			name = MYSDynamicAlertView;
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		3DFB2CBD507E42A9BFB69C6D /* Products */ = {
+		50CAB0412B5A4F67B4B6FF82 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F4B449221800458D8F8908F6 /* libPods-MYSDynamicAlertViewDemo.a */,
-				642906BF363340BA8C7DD1E4 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */,
+				552349D5EBC848D79BE9FE11 /* Foundation.framework */,
 			);
-			name = Products;
+			name = iOS;
 			sourceTree = "<group>";
 		};
-		5F55734EA623415AB2423D8D /* Frameworks */ = {
+		7491EE21ADF445F78E5B932E /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F6CA0724EC0A4E75A673EC7A /* iOS */,
+				416720CC72E04E959D35BF74 /* MYSDynamicAlertView */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		96A476EA889D44EF908FB270 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50CAB0412B5A4F67B4B6FF82 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7468D1B9381B4D6EBB3F2143 /* Pods-MYSDynamicAlertViewDemo */ = {
+		D613ED9845F9413A8617544E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28D86051B2E3448795DEE3D1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */,
-				768C217C69EC42F783098F06 /* Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown */,
-				05C41EBA44D94345B3E7BEE6 /* Pods-MYSDynamicAlertViewDemo-acknowledgements.plist */,
-				9036489AD9FE481D8E06C3CB /* Pods-MYSDynamicAlertViewDemo-dummy.m */,
-				3BF2473F3B15475CA4FE32CF /* Pods-MYSDynamicAlertViewDemo-environment.h */,
-				FF3B7824E6D64E92B5B4B337 /* Pods-MYSDynamicAlertViewDemo-resources.sh */,
+				FFC4A034BE9B42639C882815 /* libPods-MYSDynamicAlertViewDemo.a */,
+				DAFF51704B02479CB996DBC9 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */,
 			);
-			name = "Pods-MYSDynamicAlertViewDemo";
+			name = Products;
 			sourceTree = "<group>";
 		};
-		7DC0EAE843BC4AE8BCECFB38 /* Targets Support Files */ = {
+		E60255A788AE42CAAB00BBED = {
 			isa = PBXGroup;
 			children = (
-				7468D1B9381B4D6EBB3F2143 /* Pods-MYSDynamicAlertViewDemo */,
+				F931C534620642E7B1DE36E0 /* Podfile */,
+				7491EE21ADF445F78E5B932E /* Development Pods */,
+				96A476EA889D44EF908FB270 /* Frameworks */,
+				D613ED9845F9413A8617544E /* Products */,
+				1ED790881F5C421D94F27FD8 /* Targets Support Files */,
 			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		BD86CD9E792C4A56A809F683 = {
-			isa = PBXGroup;
-			children = (
-				B5FE475D441C4E4A8C21A317 /* Podfile */,
-				0DBFA043A8EA464EB18F0463 /* Development Pods */,
-				5F55734EA623415AB2423D8D /* Frameworks */,
-				3DFB2CBD507E42A9BFB69C6D /* Products */,
-				7DC0EAE843BC4AE8BCECFB38 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		CE38484E31CA48759BD620E5 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F8447604F7AD46D3892223EA /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.xcconfig */,
-				F1195BF58B324F56A00B1A76 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */,
-				A2B96EE785604710ACBE7117 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m */,
-				719D9717EEE74E1C90194EFD /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch */,
-			);
-			name = "Support Files";
-			sourceTree = SOURCE_ROOT;
-		};
-		F6CA0724EC0A4E75A673EC7A /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				B64AA988446A4697BFA80CFC /* Foundation.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		C5D0A157EDE34F5B87305FF9 /* Headers */ = {
+		AB19B44B904E40CA97FBD792 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CCA6BCAD4C414E812BACAD /* MYSDynamicAlertView.h in Headers */,
+				A6424160A61A4F5D9DADEF54 /* MYSBackDropView.h in Headers */,
+				9B22445C78C841D89F422642 /* MYSDynamicAlertView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6C25BC29E57A4A448D320464 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView */ = {
+		3DCFD012100A4D06938E0599 /* Pods-MYSDynamicAlertViewDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C906CD3AD99E4427BBD8B8DC /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView" */;
+			buildConfigurationList = 58C5F919121C49778250E892 /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo" */;
 			buildPhases = (
-				024E08184010487D8EF5751A /* Sources */,
-				D75CAADA956F45C4876ACD06 /* Frameworks */,
-				C5D0A157EDE34F5B87305FF9 /* Headers */,
+				914B6165261943E7A0C234C3 /* Sources */,
+				64811C06AD2D4F3684C7994E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA0FD09470124A1F90852FC7 /* PBXTargetDependency */,
+			);
+			name = "Pods-MYSDynamicAlertViewDemo";
+			productName = "Pods-MYSDynamicAlertViewDemo";
+			productReference = FFC4A034BE9B42639C882815 /* libPods-MYSDynamicAlertViewDemo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C94ECC7304C3405AB3185EAE /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5305BD3C46CB4A07A46990BB /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView" */;
+			buildPhases = (
+				A33523E7BAA44C899A003B32 /* Sources */,
+				C5392DF750C042198B75BBD7 /* Frameworks */,
+				AB19B44B904E40CA97FBD792 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -186,171 +215,70 @@
 			);
 			name = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView";
 			productName = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView";
-			productReference = 642906BF363340BA8C7DD1E4 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		B1505CC0D90B4C74961DABEB /* Pods-MYSDynamicAlertViewDemo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 845B5F6C695F44C9903B2DF4 /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo" */;
-			buildPhases = (
-				4A8C3D7570B44779B2E602B5 /* Sources */,
-				16F7FA2EB14648ECA2C679BF /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				468DF2C0828E493CB7776FC5 /* PBXTargetDependency */,
-			);
-			name = "Pods-MYSDynamicAlertViewDemo";
-			productName = "Pods-MYSDynamicAlertViewDemo";
-			productReference = F4B449221800458D8F8908F6 /* libPods-MYSDynamicAlertViewDemo.a */;
+			productReference = DAFF51704B02479CB996DBC9 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		62CAAEBCF599478FB03ADBED /* Project object */ = {
+		C42B315890004D36AEE4C6E6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = E2251F862AD84EDCB0F65A7C /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 045CB446037C453784131931 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = BD86CD9E792C4A56A809F683;
-			productRefGroup = 3DFB2CBD507E42A9BFB69C6D /* Products */;
+			mainGroup = E60255A788AE42CAAB00BBED;
+			productRefGroup = D613ED9845F9413A8617544E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B1505CC0D90B4C74961DABEB /* Pods-MYSDynamicAlertViewDemo */,
-				6C25BC29E57A4A448D320464 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView */,
+				3DCFD012100A4D06938E0599 /* Pods-MYSDynamicAlertViewDemo */,
+				C94ECC7304C3405AB3185EAE /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		024E08184010487D8EF5751A /* Sources */ = {
+		914B6165261943E7A0C234C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				164C0A59ACC54E19B3951282 /* MYSDynamicAlertView.m in Sources */,
-				E12C3452A8C04DF89CFC5BB8 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m in Sources */,
+				370F731619508B0D00293D38 /* MYSContentView.m in Sources */,
+				3798B2D0194FB42A003B92D0 /* MYSDynamicScrollView.m in Sources */,
+				3D4136C63DBD4FA09306B699 /* Pods-MYSDynamicAlertViewDemo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A8C3D7570B44779B2E602B5 /* Sources */ = {
+		A33523E7BAA44C899A003B32 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37BD61F9194F4FE3006B0818 /* MYSBackDropView.m in Sources */,
-				5010469A0A0F40F492AD1164 /* Pods-MYSDynamicAlertViewDemo-dummy.m in Sources */,
+				542EA5360E1E4AD3ABD3D9CF /* MYSBackDropView.m in Sources */,
+				8892BCBEB0D7452BB4AC23AC /* MYSDynamicAlertView.m in Sources */,
+				295DEFB5D1764C7D8E6D294B /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		468DF2C0828E493CB7776FC5 /* PBXTargetDependency */ = {
+		DA0FD09470124A1F90852FC7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6C25BC29E57A4A448D320464 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView */;
-			targetProxy = D396FDF4EC3C425BABB1CBF1 /* PBXContainerItemProxy */;
+			target = C94ECC7304C3405AB3185EAE /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView */;
+			targetProxy = 9664AA19EA254BE380AF6002 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		09B44A16496F44BBBA1436D6 /* Release */ = {
+		0AB9891BC0CB4385922BB4FF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1195BF58B324F56A00B1A76 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		3BD12214B37D46E48E0D932A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28D86051B2E3448795DEE3D1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		561A1A8C437D40F8991F8AA8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28D86051B2E3448795DEE3D1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		850A2FC8986D4FB9988A0E74 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1195BF58B324F56A00B1A76 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */;
+			baseConfigurationReference = FA33733F612147AAA9F1A300 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -376,37 +304,34 @@
 			};
 			name = Debug;
 		};
-		8DD61DA65DF74462A7156BDA /* Release */ = {
+		26AA5346059441A3B4E190EF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFD2CEC8884C416C817D9AD1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_NS_ASSERTIONS = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				VALIDATE_PRODUCT = YES;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
-		D2C6CE8FA8384F85A7A98DEE /* Debug */ = {
+		49175896BC6D411188173919 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -442,37 +367,126 @@
 			};
 			name = Debug;
 		};
+		7598E7660234400CBCDD4F9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFD2CEC8884C416C817D9AD1 /* Pods-MYSDynamicAlertViewDemo.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9AC43E1ADAF340A68778760A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA33733F612147AAA9F1A300 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D8129DE0045C4ADDA9EC7524 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		845B5F6C695F44C9903B2DF4 /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo" */ = {
+		045CB446037C453784131931 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				561A1A8C437D40F8991F8AA8 /* Debug */,
-				3BD12214B37D46E48E0D932A /* Release */,
+				49175896BC6D411188173919 /* Debug */,
+				D8129DE0045C4ADDA9EC7524 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C906CD3AD99E4427BBD8B8DC /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView" */ = {
+		5305BD3C46CB4A07A46990BB /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				850A2FC8986D4FB9988A0E74 /* Debug */,
-				09B44A16496F44BBBA1436D6 /* Release */,
+				0AB9891BC0CB4385922BB4FF /* Debug */,
+				9AC43E1ADAF340A68778760A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E2251F862AD84EDCB0F65A7C /* Build configuration list for PBXProject "Pods" */ = {
+		58C5F919121C49778250E892 /* Build configuration list for PBXNativeTarget "Pods-MYSDynamicAlertViewDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D2C6CE8FA8384F85A7A98DEE /* Debug */,
-				8DD61DA65DF74462A7156BDA /* Release */,
+				26AA5346059441A3B4E190EF /* Debug */,
+				7598E7660234400CBCDD4F9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 62CAAEBCF599478FB03ADBED /* Project object */;
+	rootObject = C42B315890004D36AEE4C6E6 /* Project object */;
 }

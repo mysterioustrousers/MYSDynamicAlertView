@@ -13,15 +13,19 @@ typedef void (^ActionBlock)();
 
 #import "MYSDynamicAlertView.h"
 #import "MYSBackDropView.h"
+#import "MYSDynamicScrollView.h"
+#import "MYSContentView.h"
 
 
-@interface MYSDynamicAlertView ()
+@interface MYSDynamicAlertView () <UIScrollViewDelegate, MYSContentViewDelegate>
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UIWindow *otherWindow;
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
 @property (nonatomic, assign) CGFloat speedLimit; // velocity needed to cause dismissal
 @property (nonatomic, assign) CGFloat angleDegreeAllowance; // E.g. angleAllowance = 30 gestures in the left direction will be dimissed at 180 degrees +/- 30
 @property (nonatomic, strong) MYSBackDropView *backDropView;
+@property (nonatomic, strong) MYSDynamicScrollView *viewToDrag;
+@property (nonatomic, strong) MYSContentView *animatedContentView;
 @end
 
 
@@ -57,46 +61,34 @@ typedef void (^ActionBlock)();
     // randomly snap in.
     int N   = viewWidth * 4;
     int r   = arc4random_uniform(N) - viewWidth * 2;
-    self.backDropView = [[MYSBackDropView alloc] initWithFrame:CGRectMake(r, -self.view.bounds.size.height, width, height)];
-    self.backDropView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    [self roundCorner:self.backDropView corners:UIRectCornerAllCorners];
+    self.backDropView = [[MYSBackDropView alloc] initWithFrame:CGRectMake(0, 0, width, height* 2)];
+    //MYSDynamicContentView *viewToDrag = [[MYSDynamicContentView alloc] initWithFrame:CGRectMake(0, 0, width, height )];
+    self.viewToDrag = [[MYSDynamicScrollView alloc] initWithFrame:self.view.bounds];
+    self.viewToDrag.delegate = self;
+    self.viewToDrag.contentView.delegate = self;
+    //viewToDrag.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    [self roundCorner:self.viewToDrag corners:UIRectCornerAllCorners];
+    
+    //[self.scrollView addSubview:viewToDrag];
+    
     [self.view addSubview:self.backDropView];
+    self.backDropView.center = self.view.center;
+    self.viewToDrag.center = self.view.center;
+    [self.view addSubview:self.viewToDrag];
     
     
-    UIView *viewToDrag = [[UIView alloc] initWithFrame:CGRectMake(r, -self.view.bounds.size.height, width, height)];
-    viewToDrag.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    [self roundCorner:viewToDrag corners:UIRectCornerAllCorners];
-    [self.view addSubview:viewToDrag];
-    
-    
-    // Top
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.size.width/2, viewToDrag.bounds.origin.y, 15, 20)];
-    label.text = @"^";
-    [viewToDrag addSubview:label];
-    // Left
-    label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.origin.x, viewToDrag.bounds.size.height/2 - 10,15, 20)];
-    label.text = @"<";
-    [viewToDrag addSubview:label];
-    // Right
-    label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.size.width - 15, viewToDrag.bounds.size.height/2 -10,15, 20)];
-    label.text = @">";
-    [viewToDrag addSubview:label];
-    // Down
-    label = [[UILabel alloc] initWithFrame:CGRectMake(viewToDrag.bounds.size.width/2, viewToDrag.bounds.size.height - 20,15, 20)];
-    label.text = @"v";
-    [viewToDrag addSubview:label];
-    
-    UIGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    [viewToDrag addGestureRecognizer:pan];
+    //UIGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    //[viewToDrag addGestureRecognizer:pan];
     
     [self.otherWindow makeKeyAndVisible];
     
     self.animator           = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:viewToDrag snapToPoint:self.view.center];
+    UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:self.viewToDrag snapToPoint:self.view.center];
     [self.animator addBehavior:snap];
     
-    snap    = [[UISnapBehavior alloc] initWithItem:self.backDropView snapToPoint:self.view.center];
-    [self.animator addBehavior:snap];
+    self.backDropView.animator = self.animator;
+    //snap    = [[UISnapBehavior alloc] initWithItem:self.backDropView snapToPoint:self.view.center];
+    //[self.animator addBehavior:snap];
     
     self.view.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.3 animations:^{
@@ -110,6 +102,56 @@ typedef void (^ActionBlock)();
         direction = MYSTossAlertViewDirectionUp;
     
     self.blockDictionary[@(direction)] = NUL((id)block); // NUL so that the direction can exist as a key, keys are used to filter permitted dismiss directions
+}
+
+#pragma mark - MYSContentViewDelegate
+
+- (void)contentViewPressed:(id)sender
+{
+    [self.backDropView snapOut];
+    
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIAttachmentBehavior* attach = [[UIAttachmentBehavior alloc] initWithItem:self.backDropView.upLabel attachedToAnchor:self.viewToDrag.contentView.center];
+    [_animator addBehavior:attach];
+        });
+}
+
+
+- (void)contentViewEndTap:(id)sender
+{
+    CGPoint content = self.viewToDrag.contentView.center;
+    CGPoint view = self.view.center;
+    if (CGPointEqualToPoint(content, view)) {
+
+        [self.backDropView snapIn];
+    }
+}
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    CGRect frame = [self.view convertRect:self.viewToDrag.contentView.bounds fromView:self.viewToDrag.contentView];
+    
+    self.viewToDrag.contentView.hidden = YES;
+    self.animatedContentView = [[MYSContentView alloc] initWithFrame:frame];
+    self.animatedContentView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    [self.view addSubview:self.animatedContentView];
+        UIDynamicItemBehavior *friction = [[UIDynamicItemBehavior alloc] initWithItems:@[self.animatedContentView]];
+    friction.allowsRotation = NO;
+    [self.animator addBehavior:friction];
+    UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:self.animatedContentView snapToPoint:self.view.center];
+    snap.damping = 0.1;
+    [self.animator addBehavior:snap];
+    
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.viewToDrag.contentView.hidden = NO;
+            self.viewToDrag.contentView.center = self.view.center;
+            [self.animatedContentView removeFromSuperview];
+            [self.backDropView snapIn];
+        });
+    
 }
 
 
@@ -139,9 +181,9 @@ typedef void (^ActionBlock)();
     [self.view addSubview:label];
 }
 
+
 - (void)handlePan:(UIPanGestureRecognizer *)gesture
 {
-    // adapted from http://stackoverflow.com/questions/21325057/implement-uikitdynamics-for-dragging-view-off-screen
     
     static UIAttachmentBehavior *attachment;
     static CGPoint               startCenter;
@@ -155,15 +197,17 @@ typedef void (^ActionBlock)();
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
         [self.animator removeAllBehaviors];
+        NSLog(@"Begin");
         
         startCenter = gesture.view.superview.center;
         
         // calculate the center offset and anchor point
         CGPoint pointWithinAnimatedView = [gesture locationInView:gesture.view];
-        UIOffset offset                 = UIOffsetMake(pointWithinAnimatedView.x - gesture.view.bounds.size.width / 2.0,
+        UIOffset offset                 = UIOffsetMake(0,
                                                        pointWithinAnimatedView.y - gesture.view.bounds.size.height / 2.0);
         
         CGPoint anchor                  = [gesture locationInView:gesture.view.superview];
+        anchor.x = self.view.center.x;
         
         // create attachment behavior
         attachment = [[UIAttachmentBehavior alloc] initWithItem:gesture.view
@@ -190,43 +234,26 @@ typedef void (^ActionBlock)();
     {
         // as user makes gesture, update attachment behavior's anchor point, achieving drag 'n' rotate
         CGPoint anchor          = [gesture locationInView:gesture.view.superview];
-        double stretchAmount = 60;
-        // Left
-        if (self.view.center.x - anchor.x > stretchAmount) {
-            NSLog(@"Left %@", NSStringFromCGPoint(anchor));
-            [self.backDropView.rightLabel setFont:[UIFont boldSystemFontOfSize:18]];
-            [self.backDropView.leftLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.upLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.downLabel setFont:[UIFont systemFontOfSize:17]];
- 
-        }
-        else if (self.view.center.x - anchor.x < stretchAmount * -1) {
-            NSLog(@"Right %@", NSStringFromCGPoint(anchor));
-            [self.backDropView.leftLabel setFont:[UIFont boldSystemFontOfSize:18]];
-            [self.backDropView.rightLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.upLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.downLabel setFont:[UIFont systemFontOfSize:17]];
-        }
-        else if (self.view.center.y - anchor.y > stretchAmount) {
-            NSLog(@"Up %@", NSStringFromCGPoint(anchor));
-            [self.backDropView.downLabel setFont:[UIFont boldSystemFontOfSize:18]];
-            [self.backDropView.rightLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.upLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.leftLabel setFont:[UIFont systemFontOfSize:17]];
-        }
-        else if (self.view.center.y - anchor.y < stretchAmount * -1) {
-            NSLog(@"Down %@", NSStringFromCGPoint(anchor));
-            [self.backDropView.upLabel setFont:[UIFont boldSystemFontOfSize:18]];
-            [self.backDropView.rightLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.downLabel setFont:[UIFont systemFontOfSize:17]];
-            [self.backDropView.leftLabel setFont:[UIFont systemFontOfSize:17]];
-        }
+        
+        anchor.x = self.view.center.x;
+        /*
+        CGFloat x = anchor.y - self.view.center.y;
+        CGFloat c = 0.55;
+        CGFloat d = self.view.frame.size.height;
+        CGFloat b = (1.0 - (1.0 / ((x * c / d) + 1.0))) * d;
+       NSLog(@"%f %f",x, b);
+        anchor.y = self.view.center.y + b;
+        anchor.y += 0.1;
+         */
         attachment.anchorPoint  = anchor;
+        NSLog(@"Moved");
+        
     }
     else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         [self.animator removeAllBehaviors];
         
+        NSLog(@"Ended");
         int left            = 180;
         int up              = 90;
         int down            = 270;
@@ -245,14 +272,19 @@ typedef void (^ActionBlock)();
         //NSLog(@"angle: %f right: %d left: %d up: %d down: %d", angle, isRight, isLeft, isUp, isDown);
         
         // snap it back if it doesn't match the direction restraints
-        if ((!isLeft && !isRight && !isUp && !isDown) || (fabs(velocity.x) < self.speedLimit && (isRight || isLeft)) || (fabs(velocity.y) < self.speedLimit && (isUp || isDown))) {
+        //if ((!isLeft && !isRight && !isUp && !isDown) || (fabs(velocity.x) < self.speedLimit && (isRight || isLeft)) || (fabs(velocity.y) < self.speedLimit && (isUp || isDown))) {
+        UIDynamicItemBehavior *friction = [[UIDynamicItemBehavior alloc] initWithItems:@[gesture.view]];
+        //friction.friction = 1020.0;
+        friction.allowsRotation = NO;
+        [self.animator addBehavior:friction];
             UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:gesture.view snapToPoint:startCenter];
+        snap.damping = 0.2;
             [self.animator addBehavior:snap];
             [UIView animateWithDuration:0.3 animations:^{
                 self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.4];
             }];
             return;
-        }
+        //}
         
         // otherwise, create UIDynamicItemBehavior that carries on animation from where the gesture left off (notably linear and angular velocity)
         UIDynamicItemBehavior *dynamic = [[UIDynamicItemBehavior alloc] initWithItems:@[gesture.view]];
