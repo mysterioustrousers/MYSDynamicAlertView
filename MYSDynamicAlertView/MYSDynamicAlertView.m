@@ -153,9 +153,9 @@ typedef void (^ActionBlock)();
     [self.animator removeAllBehaviors];
     self.backDropView.isLaunching   = YES;
     UIPushBehavior *pushBehavior    = [[UIPushBehavior alloc] initWithItems:@[self.contentView] mode:UIPushBehaviorModeContinuous];
-    pushBehavior.pushDirection      = CGVectorMake(0, offset * -1);
+    pushBehavior.pushDirection      = CGVectorMake(0, pow(offset, 1.4) * -1);
     UIAttachmentBehavior *attach    = [[UIAttachmentBehavior alloc] initWithItem:self.contentView attachedToItem:self.backDropView];
-    attach.frequency                = 2;
+    attach.frequency                = 5;
     
     __block BOOL isAttached             = NO;
     __weak MYSDynamicAlertView *bself   = self;
@@ -192,7 +192,7 @@ typedef void (^ActionBlock)();
     [self.animator addBehavior:pushBehavior];
     
     UIDynamicItemBehavior *dynamicBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.backDropView]];
-    dynamicBehaviour.density                = 0.5;
+    dynamicBehaviour.density                = 1;
     [self.animator addBehavior:dynamicBehaviour];
 }
 
