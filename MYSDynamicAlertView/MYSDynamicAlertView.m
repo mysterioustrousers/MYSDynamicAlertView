@@ -13,19 +13,18 @@ typedef void (^ActionBlock)();
 
 #import "MYSDynamicAlertView.h"
 #import "MYSBackDropView.h"
-#import "MYSDynamicScrollView.h"
+#import "MYSTouchScrollView.h"
 #import "MYSContentView.h"
 
 
-@interface MYSDynamicAlertView () <UIScrollViewDelegate, MYSContentViewDelegate>
-@property (nonatomic, strong) UIDynamicAnimator *animator;
-@property (nonatomic, strong) UIWindow *otherWindow;
+@interface MYSDynamicAlertView () <UIScrollViewDelegate, MYSTouchScrollViewDelegate>
+@property (nonatomic, strong) UIDynamicAnimator   *animator;
+@property (nonatomic, strong) UIWindow            *otherWindow;
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
-@property (nonatomic, assign) CGFloat speedLimit; // velocity needed to cause dismissal
-@property (nonatomic, assign) CGFloat angleDegreeAllowance; // E.g. angleAllowance = 30 gestures in the left direction will be dimissed at 180 degrees +/- 30
-@property (nonatomic, strong) MYSBackDropView *backDropView;
-@property (nonatomic, strong) MYSDynamicScrollView *viewToDrag;
-@property (nonatomic, strong) MYSContentView *animatedContentView;
+@property (nonatomic, strong) MYSBackDropView     *backDropView;
+@property (nonatomic, strong) MYSTouchScrollView  *touchScrollView;
+@property (nonatomic, strong) MYSContentView      *contentView;
+@property (nonatomic, assign) BOOL                isLaunching;
 @end
 
 
@@ -34,12 +33,11 @@ typedef void (^ActionBlock)();
 
 - (void)show
 {
-    self.otherWindow                = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.otherWindow.windowLevel    = UIWindowLevelAlert;
-    [self.otherWindow setRootViewController:self];
-    
-    self.angleDegreeAllowance   = 35;
-    self.speedLimit             = 800;
+    if (self.otherWindow == nil) {
+        self.otherWindow                = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.otherWindow.windowLevel    = UIWindowLevelAlert;
+        [self.otherWindow setRootViewController:self];
+    }
     
     // size the alert view
     CGFloat viewWidth   = self.view.bounds.size.width;
@@ -57,39 +55,34 @@ typedef void (^ActionBlock)();
         height  = viewHeight / 4.5;
     }
     
+    if (self.backDropView == nil) {
+        self.backDropView = [[MYSBackDropView alloc] initWithFrame:CGRectMake(0, 0, width, height *2 - 4)]; // -4 so the backdrop won't be visable when scrolling back to the center
+        [self.view addSubview:self.backDropView];
+    }
+    self.backDropView.isLaunching   = NO;
+    self.backDropView.center        = self.view.center;
+    [self.backDropView snapIn:NO];
     
-    // randomly snap in.
-    int N   = viewWidth * 4;
-    int r   = arc4random_uniform(N) - viewWidth * 2;
-    self.backDropView = [[MYSBackDropView alloc] initWithFrame:CGRectMake(0, 0, width, height* 2)];
-    //MYSDynamicContentView *viewToDrag = [[MYSDynamicContentView alloc] initWithFrame:CGRectMake(0, 0, width, height )];
-    self.viewToDrag = [[MYSDynamicScrollView alloc] initWithFrame:self.view.bounds];
-    self.viewToDrag.delegate = self;
-    self.viewToDrag.contentView.delegate = self;
-    //viewToDrag.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    [self roundCorner:self.viewToDrag corners:UIRectCornerAllCorners];
+    if (self.touchScrollView == nil) {
+        self.touchScrollView = [[MYSTouchScrollView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:self.touchScrollView];
+    }
+    self.touchScrollView.delegate       = self;
+    self.touchScrollView.touchDelegate  = self;
+    self.touchScrollView.center         = self.view.center;
     
-    //[self.scrollView addSubview:viewToDrag];
-    
-    [self.view addSubview:self.backDropView];
-    self.backDropView.center = self.view.center;
-    self.viewToDrag.center = self.view.center;
-    [self.view addSubview:self.viewToDrag];
-    
-    
-    //UIGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    //[viewToDrag addGestureRecognizer:pan];
+    if (self.contentView == nil) {
+        self.contentView = [[MYSContentView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+        [self.view addSubview:self.contentView];
+    }
+    self.contentView.center             = self.view.center;
+    self.touchScrollView.contentView    = self.contentView;
     
     [self.otherWindow makeKeyAndVisible];
     
-    self.animator           = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    UISnapBehavior *snap    = [[UISnapBehavior alloc] initWithItem:self.viewToDrag snapToPoint:self.view.center];
-    [self.animator addBehavior:snap];
-    
-    self.viewToDrag.contentView.animator = self.animator;
-    //snap    = [[UISnapBehavior alloc] initWithItem:self.backDropView snapToPoint:self.view.center];
-    //[self.animator addBehavior:snap];
-    
+    if (self.animator == nil) {
+        self.animator           = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    }
     self.view.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.3 animations:^{
         self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.4];
@@ -106,62 +99,102 @@ typedef void (^ActionBlock)();
     self.blockDictionary[@(direction)] = NUL((id)block); // NUL so that the direction can exist as a key, keys are used to filter permitted dismiss directions
 }
 
-#pragma mark - MYSContentViewDelegate
+#pragma mark - MYSDynamicScrollViewDelegate
 
 - (void)contentViewPressed:(id)sender
 {
-    [self.backDropView snapOut];
-    
+    [self.backDropView snapOut:YES];
 }
 
 
 - (void)contentViewEndTap:(id)sender
 {
-    CGPoint content = self.viewToDrag.contentView.center;
-    CGPoint view = self.view.center;
-    if (CGPointEqualToPoint(content, view)) {
-
-        [self.backDropView snapIn];
-    }
+    [self.backDropView snapIn:YES];
 }
 
 
 #pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.viewToDrag.contentView snapOut];
-    
+    [self.backDropView snapOut:YES];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self.backDropView snapIn:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGPoint viewCenter = [self.view.window convertPoint:self.view.center fromView:self.view];
-    CGPoint contentCenter = [self.view.window convertPoint:self.viewToDrag.contentView.center fromView:self.viewToDrag];
-    CGFloat offset = viewCenter.y - contentCenter.y;
-    NSLog(@"%f", offset);
-    self.viewToDrag.contentView.offset = offset;
-    //[self.viewToDrag.contentView snapOut];
+    CGPoint viewCenter      = [self.otherWindow convertPoint:self.view.center fromView:self.view];
+    CGPoint contentCenter   = [self.otherWindow convertPoint:self.touchScrollView.center fromView:self.touchScrollView];
+    CGFloat offset          = contentCenter.y - viewCenter.y;
+    
+    if (!self.backDropView.isLaunching) {
+        self.contentView.center             = CGPointMake(self.view.center.x, self.view.center.y + offset);
+        self.backDropView.scrollViewOffset  = offset;
+    }
     
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
-    CGRect frame = [self.view convertRect:self.viewToDrag.contentView.bounds fromView:self.viewToDrag.contentView];
-    
-    CGPoint viewCenter = [self.view.window convertPoint:self.view.center fromView:self.view];
-    CGPoint contentCenter = [self.view.window convertPoint:self.viewToDrag.contentView.center fromView:self.viewToDrag];
-    CGFloat offset = viewCenter.y - contentCenter.y;
-    NSLog(@"%f", offset);
-    if (fabs(offset) > 50) {
-        [self.viewToDrag.contentView launch:offset];
-    }
-    else {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.viewToDrag.contentView snapIn];
-        });
+    CGPoint viewCenter      = [self.otherWindow convertPoint:self.view.center fromView:self.view];
+    CGPoint contentCenter   = [self.otherWindow convertPoint:self.touchScrollView.center fromView:self.touchScrollView];
+    CGFloat offset          = contentCenter.y - viewCenter.y;
+    if (self.backDropView.isReadyToLaunch) {
+        [self launchWithoffset:offset];
     }
 }
 
+- (void)launchWithoffset:(CGFloat)offset
+{
+    [self.animator removeAllBehaviors];
+    self.backDropView.isLaunching   = YES;
+    UIPushBehavior *pushBehavior    = [[UIPushBehavior alloc] initWithItems:@[self.contentView] mode:UIPushBehaviorModeContinuous];
+    pushBehavior.pushDirection      = CGVectorMake(0, offset * -1);
+    UIAttachmentBehavior *attach    = [[UIAttachmentBehavior alloc] initWithItem:self.contentView attachedToItem:self.backDropView];
+    attach.frequency                = 2;
+    
+    __block BOOL isAttached             = NO;
+    __weak MYSDynamicAlertView *bself   = self;
+    pushBehavior.action = ^{
+        CGPoint viewCenter      = [bself.view.window convertPoint:bself.view.center fromView:bself.view];
+        CGPoint contentCenter   = [bself.view.window convertPoint:bself.contentView.center fromView:bself.view];
+        BOOL isAboveCenter      = ((viewCenter.y - contentCenter.y) > 0);
+        
+        // Attach the backdrop to the contentView only after it has passed the backdrop on its way out.
+        if (!CGRectIntersectsRect(bself.backDropView.frame, bself.contentView.frame) && ( (offset < 0 && !isAboveCenter) || (offset > 0 && isAboveCenter))) {
+            if (!isAttached || ![bself.animator.behaviors containsObject:attach]) {
+                [bself.animator addBehavior:attach];
+                isAttached = YES;
+            }
+        }
+        
+        for (UIDynamicBehavior *behavior in bself.animator.behaviors) {
+            for (UIView *view in [(UIPushBehavior *)behavior items]) {
+                CGRect frameInWindow = [view.superview convertRect:view.frame toView:nil];
+                if (CGRectIntersectsRect(frameInWindow, view.window.frame)) {
+                    return;
+                }
+            }
+        }
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            bself.view.backgroundColor = [UIColor clearColor];
+        } completion:^(BOOL finished) {
+            // TODO There is a lot of memory being used, the problem is probably here
+            [bself.animator removeAllBehaviors];
+            bself.otherWindow = nil;
+        }];
+    };
+    [self.animator addBehavior:pushBehavior];
+    
+    UIDynamicItemBehavior *dynamicBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.backDropView]];
+    dynamicBehaviour.density                = 0.5;
+    [self.animator addBehavior:dynamicBehaviour];
+}
 
 
 
@@ -181,173 +214,12 @@ typedef void (^ActionBlock)();
 
 # pragma mark - Private
 
-- (void)addLabelWithFrame:(CGRect)frame
-{
-    UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    label.backgroundColor = [UIColor redColor];
-    label.text = @"<";
-    [self.view addSubview:label];
-}
-
-
-- (void)handlePan:(UIPanGestureRecognizer *)gesture
-{
-    
-    static UIAttachmentBehavior *attachment;
-    static CGPoint               startCenter;
-    
-    // variables for calculating angular velocity
-    
-    static CFAbsoluteTime        lastTime;
-    static CGFloat               lastAngle;
-    static CGFloat               angularVelocity;
-    
-    if (gesture.state == UIGestureRecognizerStateBegan)
-    {
-        [self.animator removeAllBehaviors];
-        NSLog(@"Begin");
-        
-        startCenter = gesture.view.superview.center;
-        
-        // calculate the center offset and anchor point
-        CGPoint pointWithinAnimatedView = [gesture locationInView:gesture.view];
-        UIOffset offset                 = UIOffsetMake(0,
-                                                       pointWithinAnimatedView.y - gesture.view.bounds.size.height / 2.0);
-        
-        CGPoint anchor                  = [gesture locationInView:gesture.view.superview];
-        anchor.x = self.view.center.x;
-        
-        // create attachment behavior
-        attachment = [[UIAttachmentBehavior alloc] initWithItem:gesture.view
-                                               offsetFromCenter:offset
-                                               attachedToAnchor:anchor];
-        
-        // code to calculate angular velocity (seems curious that I have to calculate this myself, but I can if I have to)
-        lastTime    = CFAbsoluteTimeGetCurrent();
-        lastAngle   = [self angleOfView:gesture.view];
-        
-        attachment.action = ^{
-            CFAbsoluteTime time = CFAbsoluteTimeGetCurrent();
-            CGFloat angle       = [self angleOfView:gesture.view];
-            if (time > lastTime) {
-                angularVelocity = (angle - lastAngle) / (time - lastTime);
-                lastTime        = time;
-                lastAngle       = angle;
-            }
-        };
-        
-        [self.animator addBehavior:attachment];
-    }
-    else if (gesture.state == UIGestureRecognizerStateChanged)
-    {
-        // as user makes gesture, update attachment behavior's anchor point, achieving drag 'n' rotate
-        CGPoint anchor          = [gesture locationInView:gesture.view.superview];
-        
-        anchor.x = self.view.center.x;
-        /*
-        CGFloat x = anchor.y - self.view.center.y;
-        CGFloat c = 0.55;
-        CGFloat d = self.view.frame.size.height;
-        CGFloat b = (1.0 - (1.0 / ((x * c / d) + 1.0))) * d;
-       NSLog(@"%f %f",x, b);
-        anchor.y = self.view.center.y + b;
-        anchor.y += 0.1;
-         */
-        attachment.anchorPoint  = anchor;
-        NSLog(@"Moved");
-        
-    }
-    else if (gesture.state == UIGestureRecognizerStateEnded)
-    {
-        [self.animator removeAllBehaviors];
-        
-        NSLog(@"Ended");
-        int left            = 180;
-        int up              = 90;
-        int down            = 270;
-        int right           = 0;
-        
-        CGPoint velocity    = [gesture velocityInView:gesture.view.superview];
-        double angle        = atan2(velocity.y, velocity.x) * -180.0f / 3.14159f;       // just use degrees
-        if (angle < 0) angle += 360.0f;
-        
-        // if there direction enum exists in the dictionary allow it to be dismissed that direction
-        BOOL isLeft     = (angle <= left + self.angleDegreeAllowance) && (angle > left - self.angleDegreeAllowance) && self.blockDictionary[@(MYSTossAlertViewDirectionLeft)];
-        BOOL isUp       = (angle <= up + self.angleDegreeAllowance) && (angle > up - self.angleDegreeAllowance) && self.blockDictionary[@(MYSTossAlertViewDirectionUp)];;
-        BOOL isDown     = (angle <= down + self.angleDegreeAllowance) && (angle > down - self.angleDegreeAllowance) && self.blockDictionary[@(MYSTossAlertViewDirectionDown)];
-        BOOL isRight    = (((angle <= right + self.angleDegreeAllowance) && (angle >= right)) || (angle > right + 360 - self.angleDegreeAllowance)) && self.blockDictionary[@(MYSTossAlertViewDirectionRight)];
-        
-        //NSLog(@"angle: %f right: %d left: %d up: %d down: %d", angle, isRight, isLeft, isUp, isDown);
-        
-        // snap it back if it doesn't match the direction restraints
-        //if ((!isLeft && !isRight && !isUp && !isDown) || (fabs(velocity.x) < self.speedLimit && (isRight || isLeft)) || (fabs(velocity.y) < self.speedLimit && (isUp || isDown))) {
-        UIDynamicItemBehavior *friction = [[UIDynamicItemBehavior alloc] initWithItems:@[gesture.view]];
-        //friction.friction = 1020.0;
-        friction.allowsRotation = NO;
-        [self.animator addBehavior:friction];
-            UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:gesture.view snapToPoint:startCenter];
-        snap.damping = 0.2;
-            [self.animator addBehavior:snap];
-            [UIView animateWithDuration:0.3 animations:^{
-                self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.4];
-            }];
-            return;
-        //}
-        
-        // otherwise, create UIDynamicItemBehavior that carries on animation from where the gesture left off (notably linear and angular velocity)
-        UIDynamicItemBehavior *dynamic = [[UIDynamicItemBehavior alloc] initWithItems:@[gesture.view]];
-        [dynamic addLinearVelocity:velocity forItem:gesture.view];
-        [dynamic addAngularVelocity:angularVelocity forItem:gesture.view];
-        [dynamic setAngularResistance:2];
-        
-        // add a push so it accelerates off the screen (in case user gesture was slow)
-        UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[gesture.view] mode:UIPushBehaviorModeContinuous];
-        push.pushDirection = CGVectorMake(velocity.x * 0.3, velocity.y * 0.3);
-        [self.animator addBehavior:push];
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            self.view.backgroundColor = [UIColor clearColor];
-        }];
-        
-        NSNumber *key = nil;
-        if (isRight)
-            key = @(MYSTossAlertViewDirectionRight);
-        else if (isLeft)
-            key = @(MYSTossAlertViewDirectionLeft);
-        else if (isUp)
-            key = @(MYSTossAlertViewDirectionUp);
-        else if (isDown)
-            key = @(MYSTossAlertViewDirectionDown);
-        
-        ActionBlock block   = NILL(self.blockDictionary[key]);
-        
-        // when the view no longer intersects with its superview, go ahead and remove it
-        dynamic.action = ^{
-            if (!CGRectIntersectsRect(gesture.view.superview.bounds, gesture.view.frame)) {
-                [self.animator removeAllBehaviors];
-                [gesture.view removeFromSuperview];
-                self.otherWindow.hidden             = YES;
-                self.otherWindow                    = nil;
-                if (block) block();
-            }
-        };
-        [self.animator addBehavior:dynamic];
-    }
-}
-
-- (CGFloat)angleOfView:(UIView *)view
-{
-    // http://stackoverflow.com/a/2051861/1271826
-    
-    return atan2(view.transform.b, view.transform.a);
-}
-
 - (void)roundCorner:(UIView *)view corners:(UIRectCorner)corners
 {
     UIBezierPath *maskPath;
-    maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds
-                                     byRoundingCorners: corners
-                                           cornerRadii:CGSizeMake(10.0, 10.0)];
+    maskPath                = [UIBezierPath bezierPathWithRoundedRect:view.bounds
+                                                    byRoundingCorners: corners
+                                                          cornerRadii:CGSizeMake(10.0, 10.0)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame         = view.bounds;
     maskLayer.path          = maskPath.CGPath;

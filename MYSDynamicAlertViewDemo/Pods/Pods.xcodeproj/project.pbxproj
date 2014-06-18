@@ -10,7 +10,7 @@
 		20A0E4C712D046E2B330801A /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFF51704B02479CB996DBC9 /* libPods-MYSDynamicAlertViewDemo-MYSDynamicAlertView.a */; };
 		295DEFB5D1764C7D8E6D294B /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AF127D35C390446D81C8033A /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-dummy.m */; };
 		370F731619508B0D00293D38 /* MYSContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370F731519508B0D00293D38 /* MYSContentView.m */; };
-		3798B2D0194FB42A003B92D0 /* MYSDynamicScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3798B2CF194FB42A003B92D0 /* MYSDynamicScrollView.m */; };
+		3798B2D0194FB42A003B92D0 /* MYSTouchScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3798B2CF194FB42A003B92D0 /* MYSTouchScrollView.m */; };
 		3D4136C63DBD4FA09306B699 /* Pods-MYSDynamicAlertViewDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24B6B1B1854DD3969565CA /* Pods-MYSDynamicAlertViewDemo-dummy.m */; };
 		542EA5360E1E4AD3ABD3D9CF /* MYSBackDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F6502F7C62437BA60E78B3 /* MYSBackDropView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		8892BCBEB0D7452BB4AC23AC /* MYSDynamicAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F92E7EC5BBAC4B388CED6533 /* MYSDynamicAlertView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -35,8 +35,8 @@
 		23240B93EBB845AB927E896D /* Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MYSDynamicAlertViewDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		370F731419508B0D00293D38 /* MYSContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYSContentView.h; path = MYSDynamicAlertView/MYSContentView.h; sourceTree = "<group>"; };
 		370F731519508B0D00293D38 /* MYSContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYSContentView.m; path = MYSDynamicAlertView/MYSContentView.m; sourceTree = "<group>"; };
-		3798B2CE194FB42A003B92D0 /* MYSDynamicScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYSDynamicScrollView.h; path = MYSDynamicAlertView/MYSDynamicScrollView.h; sourceTree = "<group>"; };
-		3798B2CF194FB42A003B92D0 /* MYSDynamicScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYSDynamicScrollView.m; path = MYSDynamicAlertView/MYSDynamicScrollView.m; sourceTree = "<group>"; };
+		3798B2CE194FB42A003B92D0 /* MYSTouchScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYSTouchScrollView.h; path = MYSDynamicAlertView/MYSTouchScrollView.h; sourceTree = "<group>"; };
+		3798B2CF194FB42A003B92D0 /* MYSTouchScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYSTouchScrollView.m; path = MYSDynamicAlertView/MYSTouchScrollView.m; sourceTree = "<group>"; };
 		4696AFF2239B4B28861BEA96 /* Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MYSDynamicAlertViewDemo-MYSDynamicAlertView-prefix.pch"; sourceTree = "<group>"; };
 		4C24B6B1B1854DD3969565CA /* Pods-MYSDynamicAlertViewDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MYSDynamicAlertViewDemo-dummy.m"; sourceTree = "<group>"; };
 		552349D5EBC848D79BE9FE11 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -115,8 +115,8 @@
 				00F6502F7C62437BA60E78B3 /* MYSBackDropView.m */,
 				E9B40F8BD5E6403D953F2B6D /* MYSDynamicAlertView.h */,
 				F92E7EC5BBAC4B388CED6533 /* MYSDynamicAlertView.m */,
-				3798B2CE194FB42A003B92D0 /* MYSDynamicScrollView.h */,
-				3798B2CF194FB42A003B92D0 /* MYSDynamicScrollView.m */,
+				3798B2CE194FB42A003B92D0 /* MYSTouchScrollView.h */,
+				3798B2CF194FB42A003B92D0 /* MYSTouchScrollView.m */,
 				370F731419508B0D00293D38 /* MYSContentView.h */,
 				370F731519508B0D00293D38 /* MYSContentView.m */,
 				09392466F45446C7A58C1512 /* Support Files */,
@@ -250,7 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				370F731619508B0D00293D38 /* MYSContentView.m in Sources */,
-				3798B2D0194FB42A003B92D0 /* MYSDynamicScrollView.m in Sources */,
+				3798B2D0194FB42A003B92D0 /* MYSTouchScrollView.m in Sources */,
 				3D4136C63DBD4FA09306B699 /* Pods-MYSDynamicAlertViewDemo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
