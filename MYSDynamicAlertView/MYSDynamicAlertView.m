@@ -65,6 +65,7 @@ typedef void (^ActionBlock)();
     
     if (self.touchScrollView == nil) {
         self.touchScrollView = [[MYSTouchScrollView alloc] initWithFrame:self.view.bounds];
+        self.touchScrollView.layer.cornerRadius = 15;
         [self.view addSubview:self.touchScrollView];
     }
     self.touchScrollView.delegate       = self;
@@ -73,6 +74,7 @@ typedef void (^ActionBlock)();
     
     if (self.contentView == nil) {
         self.contentView = [[MYSContentView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+        self.contentView.layer.cornerRadius = 15;
         [self.view addSubview:self.contentView];
     }
     self.contentView.center             = self.view.center;
