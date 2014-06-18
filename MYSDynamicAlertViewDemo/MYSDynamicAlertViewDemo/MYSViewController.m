@@ -11,6 +11,7 @@
 
 @interface MYSViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
+@property (nonatomic, strong) MYSDynamicAlertView *tossAlert;
 
 @end
 
@@ -20,6 +21,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.tossAlert = [[MYSDynamicAlertView alloc] init];
+    __weak MYSViewController *bself = self;
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Left"; } direction:MYSTossAlertViewDirectionLeft];
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Right"; } direction:MYSTossAlertViewDirectionRight];
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSTossAlertViewDirectionUp];
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSTossAlertViewDirectionDown];
+    //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
 }
 
 - (void)didReceiveMemoryWarning
@@ -30,13 +38,7 @@
 
 - (IBAction)showAlertButtonWasTapped:(id)sender
 {
-    MYSDynamicAlertView *tossAlert = [[MYSDynamicAlertView alloc] init];
-    [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Left"; } direction:MYSTossAlertViewDirectionLeft];
-    [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Right"; } direction:MYSTossAlertViewDirectionRight];
-    [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Up"; } direction:MYSTossAlertViewDirectionUp];
-    [tossAlert setDismissBlock:^{ self.directionLabel.text = @"Down"; } direction:MYSTossAlertViewDirectionDown];
-    //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
-    [tossAlert show];
+    [self.tossAlert show];
     
 }
 
