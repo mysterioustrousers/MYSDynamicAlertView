@@ -8,12 +8,9 @@
 
 #import "MYSTouchScrollView.h"
 
-@interface MYSTouchScrollView ()
-@property (nonatomic, strong) NSDate *start;
-@property (nonatomic, strong) NSDate *end;
-@end
 
 @implementation MYSTouchScrollView
+
 
 - (id)initWithFrame:(CGRect)aRect
 {
@@ -39,20 +36,12 @@
     
     if (CGRectContainsPoint(self.contentView.bounds, pointOfContact)) {
         [self.touchDelegate contentViewPressed:event];
-        [self startTimer];
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // do some button debouncing
-        [self stopTimer];
-        double time = [self timeElapsedInSeconds];
-        if (time > 0.8) {
-            [self.touchDelegate contentViewEndTap:event];
-        }
-    });
+    [self.touchDelegate contentViewEndTap:event];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -61,26 +50,6 @@
     CGPoint pointOfContact  = [gestureRecognizer locationInView:self];
     pointOfContact          = [self.contentView convertPoint:pointOfContact fromView:self];
     return (CGRectContainsPoint(self.contentView.bounds, pointOfContact));
-}
-
-
-
-
-# pragma mark - private
-
-- (void) startTimer
-{
-    self.start = [NSDate date];
-}
-
-- (void) stopTimer
-{
-    self.end = [NSDate date];
-}
-
-- (double) timeElapsedInSeconds
-{
-    return [self.end timeIntervalSinceDate:self.start];
 }
 
 @end

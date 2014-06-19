@@ -25,6 +25,7 @@ typedef void (^ActionBlock)();
 @property (nonatomic, strong) MYSTouchScrollView  *touchScrollView;
 @property (nonatomic, strong) MYSContentView      *contentView;
 @property (nonatomic, assign) BOOL                isLaunching;
+
 @end
 
 
@@ -135,9 +136,10 @@ typedef void (^ActionBlock)();
     
     if (!self.backDropView.isLaunching) {
         self.contentView.center             = CGPointMake(self.view.center.x, self.view.center.y + offset);
+    }
+    if (self.touchScrollView.isDragging) {
         self.backDropView.scrollViewOffset  = offset;
     }
-    
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -148,6 +150,9 @@ typedef void (^ActionBlock)();
     if (self.backDropView.isReadyToLaunch) {
         [self launchWithoffset:offset];
     }
+    else {
+        [self.backDropView snapIn:YES];
+    }
 }
 
 - (void)launchWithoffset:(CGFloat)offset
@@ -155,7 +160,10 @@ typedef void (^ActionBlock)();
     [self.animator removeAllBehaviors];
     self.backDropView.isLaunching   = YES;
     UIPushBehavior *pushBehavior    = [[UIPushBehavior alloc] initWithItems:@[self.contentView] mode:UIPushBehaviorModeContinuous];
-    pushBehavior.pushDirection      = CGVectorMake(0, pow(offset, 1.4) * -1);
+    double power = pow(fabs(offset), 1.4);
+    if (offset > 0)
+        power *= -1;
+    pushBehavior.pushDirection      = CGVectorMake(0, power);
     UIAttachmentBehavior *attach    = [[UIAttachmentBehavior alloc] initWithItem:self.contentView attachedToItem:self.backDropView];
     attach.frequency                = 5;
     
@@ -216,16 +224,5 @@ typedef void (^ActionBlock)();
 
 # pragma mark - Private
 
-- (void)roundCorner:(UIView *)view corners:(UIRectCorner)corners
-{
-    UIBezierPath *maskPath;
-    maskPath                = [UIBezierPath bezierPathWithRoundedRect:view.bounds
-                                                    byRoundingCorners: corners
-                                                          cornerRadii:CGSizeMake(10.0, 10.0)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame         = view.bounds;
-    maskLayer.path          = maskPath.CGPath;
-    view.layer.mask         = maskLayer;
-}
 
 @end
