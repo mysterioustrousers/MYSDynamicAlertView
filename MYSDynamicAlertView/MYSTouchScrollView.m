@@ -17,12 +17,15 @@
     if ((self = [super initWithFrame:aRect])) {
         self.backgroundColor    = [UIColor clearColor];
         self.scrollEnabled      = YES;
-        self.self.contentSize   = CGSizeMake(self.bounds.size.width, self.bounds.size.height + 1);
+        self.contentSize   = CGSizeMake(self.bounds.size.width, self.bounds.size.height + 1);
     }
     return self;
 }
 
-
+- (void)layoutSubviews
+{
+    self.contentSize   = CGSizeMake(self.bounds.size.width, self.bounds.size.height + 1);
+}
 
 
 # pragma mark - touches
