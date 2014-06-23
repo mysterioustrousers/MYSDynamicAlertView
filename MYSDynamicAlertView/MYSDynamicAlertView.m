@@ -190,7 +190,7 @@ typedef void (^ActionBlock)();
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [self.backDropView snapOut:YES];
+    [self.backDropView snapOut:YES]; // just in case
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -215,7 +215,7 @@ typedef void (^ActionBlock)();
         [self launchWithoffset:offset direction:self.backDropView.direction];
     }
     else {
-//        [self.backDropView snapIn:YES];
+        [self.backDropView snapOut:YES];
     }
 }
 
