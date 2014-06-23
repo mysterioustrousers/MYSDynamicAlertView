@@ -155,7 +155,7 @@
 - (void)snapOut:(BOOL)animated
 {
     // Determine if all ready out
-    if (CGPointEqualToPoint(self.upLabel.center,self.upLabelSnappedOut) || self.isLaunching) return;
+    if (self.isLaunching)  return;
     
     self.greenView.backgroundColor  = [self darkerColorForColor:[UIColor greenColor]];
     self.redView.backgroundColor    = [self darkerColorForColor:[UIColor redColor]];

@@ -183,15 +183,15 @@ typedef void (^ActionBlock)();
 
 #pragma mark - UIScrollViewDelegate
 
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-//{
-//    [self.backDropView snapOut:YES];
-//}
-//
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-//{
-//    [self.backDropView snapIn:YES];
-//}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.backDropView snapOut:YES];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self.backDropView snapOut:YES];
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
