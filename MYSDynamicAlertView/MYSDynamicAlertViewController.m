@@ -21,6 +21,7 @@ typedef void (^ActionBlock)();
 @property (nonatomic, strong) UIDynamicAnimator   *animator;
 @property (nonatomic, strong) UIWindow            *otherWindow;
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
+@property (nonatomic, strong) NSMutableDictionary *titleDictionary;
 @property (nonatomic, strong) MYSBackDropView     *backDropView;
 @property (nonatomic, strong) MYSTouchScrollView  *touchScrollView;
 @property (nonatomic, strong) MYSContentView      *contentView;
@@ -46,16 +47,25 @@ typedef void (^ActionBlock)();
     }
     
     // size the alert view
-    CGFloat width   = 256;
-    CGFloat height  = 128;
+    CGFloat width   = 270;
+    CGFloat height  = 110;
+    
+    CGSize maximumSize              = CGSizeMake(width - 16, 9999);  // 16 for the edge inserts
+    NSDictionary *stringAttributes  = [NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:15] forKey: NSFontAttributeName];
+    CGSize expectedLabelSize        = [self.message boundingRectWithSize:maximumSize
+                                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                                              attributes:stringAttributes context:nil].size;
+    height                         += expectedLabelSize.height;
     
     if (self.backDropView == nil) {
-        self.backDropView = [[MYSBackDropView alloc] initWithFrame:CGRectMake(0,0, width, height *2 - 4)]; // -4 so the backdrop won't be visable when scrolling back to the center
+        self.backDropView = [[MYSBackDropView alloc] init];
         [self.view addSubview:self.backDropView];
     }
     self.backDropView.isLaunching   = NO;
-    [self centerView:self.backDropView withContantWidth:width height:height *2 -4];
+    [self centerView:self.backDropView withContantWidth:width height:height * 2- 4];// -4 so the backdrop won't be visable when scrolling back to the center
     [self.backDropView snapIn:NO];
+    self.backDropView.upLabel.text = self.titleDictionary[@(MYSDynamicAlertViewDirectionUp)];
+    self.backDropView.downLabel.text = self.titleDictionary[@(MYSDynamicAlertViewDirectionDown)];
     
     if (self.touchScrollView == nil) {
         self.touchScrollView = [[MYSTouchScrollView alloc] initWithFrame:self.view.bounds];
@@ -70,7 +80,7 @@ typedef void (^ActionBlock)();
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[touchScrollView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(touchScrollView)]];
     
     if (self.contentView == nil) {
-        self.contentView = [[MYSContentView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+        self.contentView = [[MYSContentView alloc] init];
         self.contentView.layer.cornerRadius = 15;
         self.contentView.layer.masksToBounds = YES;
 
@@ -131,11 +141,15 @@ typedef void (^ActionBlock)();
                                                          multiplier:1.0 constant:0]];
 }
 
-- (void)setDismissBlock:(void (^)(void))block direction:(MYSDynamicAlertViewDirection)direction
+- (void)setTitle:(NSString *)title dismissBlock:(void (^)(void))block direction:(MYSDynamicAlertViewDirection)direction
 {
     if (direction > MYSDynamicAlertViewDirectionDown)
         direction = MYSDynamicAlertViewDirectionUp;
     
+    
+    if (title != nil) {
+        self.titleDictionary[@(direction)] = title;
+    }
     self.blockDictionary[@(direction)] = NUL((id)block); // NUL so that the direction can exist as a key, keys are used to filter permitted dismiss directions
 }
 
@@ -179,6 +193,7 @@ typedef void (^ActionBlock)();
     if (self.touchScrollView.isDragging) {
         self.backDropView.scrollViewOffset  = offset;
     }
+        self.contentView.scrollViewOffset   = offset;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -199,14 +214,14 @@ typedef void (^ActionBlock)();
     [self.animator removeAllBehaviors];
     self.backDropView.isLaunching   = YES;
     UIPushBehavior *pushBehavior    = [[UIPushBehavior alloc] initWithItems:@[self.contentView] mode:UIPushBehaviorModeContinuous];
-    double power                    = pow(fabs(offset), 1.4);
+    double power                    = pow(fabs(offset), 1.6);
     if (direction == MYSDynamicAlertViewDirectionUp) {
         power *= -1;
     }
 
     pushBehavior.pushDirection      = CGVectorMake(0, power);
     UIAttachmentBehavior *attach    = [[UIAttachmentBehavior alloc] initWithItem:self.contentView attachedToItem:self.backDropView];
-    attach.frequency                = 5;
+    attach.frequency                = 4;
     
      ActionBlock block   = NILL(self.blockDictionary[@(direction)]);
     
@@ -227,27 +242,27 @@ typedef void (^ActionBlock)();
             }
         }
         
-        for (UIDynamicBehavior *behavior in bself.animator.behaviors) {
-            for (UIView *view in [(UIPushBehavior *)behavior items]) {
-                CGRect frameInWindow = [view.superview convertRect:view.frame toView:nil];
-                if (CGRectIntersectsRect(frameInWindow, view.window.frame)) {
-                    return;
-                }
-            }
+        if (CGRectIntersectsRect([bself.view.superview convertRect:bself.backDropView.upLabel.frame fromView:bself.backDropView], bself.view.frame) && direction == MYSDynamicAlertViewDirectionUp) {
+            return;
+        }
+        if (CGRectIntersectsRect([bself.view.superview convertRect:bself.backDropView.downLabel.frame fromView:bself.backDropView], bself.view.frame) && direction == MYSDynamicAlertViewDirectionDown) {
+            return;
         }
         
         [UIView animateWithDuration:0.3 animations:^{
             bself.view.backgroundColor = [UIColor clearColor];
         } completion:^(BOOL finished) {
             [bself.animator removeAllBehaviors];
-            bself.otherWindow = nil;
             if (block) block();
         }];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            bself.otherWindow = nil;
+        });
     };
     [self.animator addBehavior:pushBehavior];
     
     UIDynamicItemBehavior *dynamicBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.backDropView]];
-    dynamicBehaviour.density                = 1;
+    dynamicBehaviour.density                = 0.5;
     [self.animator addBehavior:dynamicBehaviour];
 }
 
@@ -262,6 +277,14 @@ typedef void (^ActionBlock)();
         _blockDictionary = [[NSMutableDictionary alloc] init];
     }
     return _blockDictionary;
+}
+
+- (NSMutableDictionary *)titleDictionary
+{
+    if (_titleDictionary == nil) {
+        _titleDictionary = [[NSMutableDictionary alloc] init];
+    }
+    return _titleDictionary;
 }
 
 - (void)setMessage:(NSString *)message
