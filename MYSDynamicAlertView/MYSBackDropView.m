@@ -62,9 +62,11 @@
         
         // Top
         if (self.upLabel == nil) {
-            self.upLabel                    = [[UILabel alloc] init];
-            self.upLabel.text               = @"Ok";
-            self.upLabel.textAlignment      = NSTextAlignmentCenter;
+            self.upLabel               = [[UILabel alloc] init];
+            self.upLabel.text          = @"Ok";
+            self.upLabel.textAlignment = NSTextAlignmentCenter;
+            self.upLabel.textColor     = [UIColor whiteColor];
+            self.upLabel.font          = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
             [self addSubview:self.upLabel];
         }
         self.upLabel.frame = CGRectMake(bounds.origin.x, bounds.origin.y + self.fourthHeight, self.width, self.eigthHeight);
@@ -73,15 +75,17 @@
         self.upLabel.center             = self.upLabelSnappedIn;
         // Down
         if (self.downLabel == nil) {
-            self.downLabel                  = [[UILabel alloc] init];
-            self.downLabel.text             = @"Cancel";
-            self.downLabel.textAlignment    = NSTextAlignmentCenter;
+            self.downLabel               = [[UILabel alloc] init];
+            self.downLabel.text          = @"Cancel";
+            self.downLabel.textAlignment = NSTextAlignmentCenter;
+            self.downLabel.textColor     = [UIColor whiteColor];
+            self.downLabel.font          = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
             [self addSubview:self.downLabel];
         }
-        self.downLabel.frame = CGRectMake(bounds.origin.x, bounds.origin.y + self.eigthHeight * 2, self.width, self.eigthHeight);
-        self.downLabelSnappedIn         = CGPointMake(bounds.origin.x + bounds.size.width/2, bounds.origin.y + bounds.size.height - self.fourthHeight - self.upLabel.bounds.size.height/2);
-        self.downLabelSnappedOut        = CGPointMake(bounds.origin.x + bounds.size.width/2, bounds.size.height - self.upLabel.bounds.size.height);
-        self.downLabel.center           = self.downLabelSnappedIn;
+        self.downLabel.frame     = CGRectMake(bounds.origin.x, bounds.origin.y + self.eigthHeight * 2, self.width, self.eigthHeight);
+        self.downLabelSnappedIn  = CGPointMake(bounds.origin.x + bounds.size.width/2, bounds.origin.y + bounds.size.height - self.fourthHeight - self.upLabel.bounds.size.height/2);
+        self.downLabelSnappedOut = CGPointMake(bounds.origin.x + bounds.size.width/2, bounds.size.height - self.upLabel.bounds.size.height);
+        self.downLabel.center    = self.downLabelSnappedIn;
 }
 
 - (void)setScrollViewOffset:(CGFloat)scrollViewOffset
