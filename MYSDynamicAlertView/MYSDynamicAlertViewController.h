@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, MYSDynamicAlertViewDirection) {
 #import <UIKit/UIKit.h>
 
 @interface MYSDynamicAlertViewController : UIViewController
+@property (nonatomic, strong) NSString *message;
 - (void)show;
 - (void)setDismissBlock:(void (^)(void))block direction:(MYSDynamicAlertViewDirection)direction;
 @end

@@ -72,10 +72,13 @@ typedef void (^ActionBlock)();
     if (self.contentView == nil) {
         self.contentView = [[MYSContentView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
         self.contentView.layer.cornerRadius = 15;
+        self.contentView.layer.masksToBounds = YES;
+
         [self.view addSubview:self.contentView];
     }
     [self centerView:self.contentView withContantWidth:width height:height];
     self.touchScrollView.contentView    = self.contentView;
+    self.contentView.messageLabel.text  = self.message;
     
     
     [self sectionDetectionViews];
@@ -205,6 +208,8 @@ typedef void (^ActionBlock)();
     UIAttachmentBehavior *attach    = [[UIAttachmentBehavior alloc] initWithItem:self.contentView attachedToItem:self.backDropView];
     attach.frequency                = 5;
     
+     ActionBlock block   = NILL(self.blockDictionary[@(direction)]);
+    
     __block BOOL isAttached             = NO;
     __weak MYSDynamicAlertViewController *bself   = self;
     pushBehavior.action = ^{
@@ -236,6 +241,7 @@ typedef void (^ActionBlock)();
         } completion:^(BOOL finished) {
             [bself.animator removeAllBehaviors];
             bself.otherWindow = nil;
+            if (block) block();
         }];
     };
     [self.animator addBehavior:pushBehavior];
@@ -248,7 +254,7 @@ typedef void (^ActionBlock)();
 
 
 
-# pragma mark - Getters
+# pragma mark - Getters/Setters
 
 - (NSMutableDictionary *)blockDictionary
 {
@@ -256,6 +262,12 @@ typedef void (^ActionBlock)();
         _blockDictionary = [[NSMutableDictionary alloc] init];
     }
     return _blockDictionary;
+}
+
+- (void)setMessage:(NSString *)message
+{
+    _message                            = message;
+    self.contentView.messageLabel.text  = self.message;
 }
 
 

@@ -28,6 +28,7 @@
     [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSDynamicAlertViewDirectionUp];
     [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSDynamicAlertViewDirectionDown];
     //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
+    self.tossAlert.message = @"Hello World!";
 }
 
 - (void)didReceiveMemoryWarning
