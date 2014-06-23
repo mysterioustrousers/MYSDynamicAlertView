@@ -75,12 +75,12 @@
     CGFloat offset  = 10;
     CGFloat thick   = 6.5;
     [[UIColor colorWithWhite:self.topChevronWhite alpha:1.0] setStroke];
-    UIBezierPath *upChevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2,  offset, width, height) direction:MYSDynamicAlertViewDirectionUp];
+    UIBezierPath *upChevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2,  offset, width, height) direction:MYSDynamicAlertViewDirectionDown];
     [upChevronPath setLineWidth:thick];
     [upChevronPath stroke];
     
     [[UIColor colorWithWhite:self.bottomChevronWhite alpha:1.0] setStroke];
-    UIBezierPath *downChevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2, rect.size.height - height - offset, width, height) direction:MYSDynamicAlertViewDirectionDown];
+    UIBezierPath *downChevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2, rect.size.height - height - offset, width, height) direction:MYSDynamicAlertViewDirectionUp];
     [downChevronPath setLineWidth:thick];
     [downChevronPath stroke];
 }
