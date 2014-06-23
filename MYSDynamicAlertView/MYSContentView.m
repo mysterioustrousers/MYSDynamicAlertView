@@ -63,7 +63,7 @@
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[titleLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel)]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[messageLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-40-[titleLabel(<=messageLabel)]-[messageLabel]-40-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel,messageLabel)]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[titleLabel(<=messageLabel)]-[messageLabel]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel,messageLabel)]];
         //[self.messageLabel addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[messageLabel(200@300)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
     }
     return self;

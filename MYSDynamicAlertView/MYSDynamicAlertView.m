@@ -48,7 +48,7 @@ typedef void (^ActionBlock)();
     
     // size the alert view
     CGFloat width   = 270;
-    CGFloat height  = 110;
+    CGFloat height  = 75;
     
     CGSize maximumSize              = CGSizeMake(width - 16, 9999);  // 16 for the edge inserts
     // header

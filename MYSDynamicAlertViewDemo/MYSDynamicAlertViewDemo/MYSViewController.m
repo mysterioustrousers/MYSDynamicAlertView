@@ -26,7 +26,7 @@
     [self.tossAlert setTitle:@"Ok" dismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSDynamicAlertViewDirectionUp];
     [self.tossAlert setTitle:@"Cancel" dismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSDynamicAlertViewDirectionDown];
     //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
-    self.tossAlert.message      = @"Hello World! ";
+    self.tossAlert.message      = @"We recommend staying on this form until you can verify it's been correctly installed.";
     self.tossAlert.alertTitle   = @"Are you sure?";
     //self.tossAlert.message      = @"Hello World! Hello World! Hello World! Hello World! Hello World! Hello World!  Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World!";
 }
