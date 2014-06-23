@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MYSDynamicAlertViewController.h"
+#import "MYSDynamicAlertView.h"
 
 @interface MYSBackDropView : UIView
 @property (nonatomic, strong) UILabel                      *upLabel;

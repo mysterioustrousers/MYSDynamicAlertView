@@ -11,13 +11,13 @@ typedef void (^ActionBlock)();
 #define NILL(a) ([a isKindOfClass:[NSNull class]] ? nil : a) // swaps NSNull with nil
 #define NUL(a) (a ?: [NSNull null]) // swaps nil with NSNull
 
-#import "MYSDynamicAlertViewController.h"
+#import "MYSDynamicAlertView.h"
 #import "MYSBackDropView.h"
 #import "MYSTouchScrollView.h"
 #import "MYSContentView.h"
 
 
-@interface MYSDynamicAlertViewController () <UIScrollViewDelegate, MYSTouchScrollViewDelegate>
+@interface MYSDynamicAlertView () <UIScrollViewDelegate, MYSTouchScrollViewDelegate>
 @property (nonatomic, strong) UIDynamicAnimator   *animator;
 @property (nonatomic, strong) UIWindow            *otherWindow;
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
@@ -32,7 +32,7 @@ typedef void (^ActionBlock)();
 @end
 
 
-@implementation MYSDynamicAlertViewController
+@implementation MYSDynamicAlertView
 
 
 - (void)show
@@ -226,7 +226,7 @@ typedef void (^ActionBlock)();
      ActionBlock block   = NILL(self.blockDictionary[@(direction)]);
     
     __block BOOL isAttached             = NO;
-    __weak MYSDynamicAlertViewController *bself   = self;
+    __weak MYSDynamicAlertView *bself   = self;
     pushBehavior.action = ^{
         CGRect contentFrame     = bself.contentView.frame;
         CGRect backDropFrame    = bself.backDropView.frame;

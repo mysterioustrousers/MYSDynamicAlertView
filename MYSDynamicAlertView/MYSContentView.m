@@ -11,7 +11,7 @@
 #define CHEVRON_WHITE_MIN 0.65
 
 #import "MYSContentView.h"
-#import "MYSDynamicAlertViewController.h"
+#import "MYSDynamicAlertView.h"
 
 
 @interface MYSContentView ()

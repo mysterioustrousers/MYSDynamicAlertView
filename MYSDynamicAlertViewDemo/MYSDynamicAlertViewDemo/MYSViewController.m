@@ -7,11 +7,11 @@
 //
 
 #import "MYSViewController.h"
-#import "MYSDynamicAlertViewController.h"
+#import "MYSDynamicAlertView.h"
 
 @interface MYSViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
-@property (nonatomic, strong) MYSDynamicAlertViewController *tossAlert;
+@property (nonatomic, strong) MYSDynamicAlertView *tossAlert;
 
 @end
 
@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.tossAlert = [[MYSDynamicAlertViewController alloc] init];
+    self.tossAlert = [[MYSDynamicAlertView alloc] init];
     __weak MYSViewController *bself = self;
     [self.tossAlert setTitle:@"Ok" dismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSDynamicAlertViewDirectionUp];
     [self.tossAlert setTitle:@"Cancel" dismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSDynamicAlertViewDirectionDown];
