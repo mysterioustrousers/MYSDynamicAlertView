@@ -31,25 +31,40 @@
         self.bottomChevronWhite     = CHEVRON_WHITE;
         
         CGFloat height = self.frame.size.height;
+        
+        self.titleLabel               = [[UILabel alloc] init];
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:self.titleLabel];
+        
+        self.titleLabel.numberOfLines = 0;
+        self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.titleLabel.font          = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]; // Also change font size of method that calculates height of title string in MYSDynamicAlertView
+        
+        [self.titleLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+        [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+        [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self addSubview:self.titleLabel];
+        UILabel *titleLabel = self.titleLabel;
+        
+        
         self.messageLabel               = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width,height/2)];
         self.messageLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.messageLabel];
         
         self.messageLabel.numberOfLines = 0;
         self.messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.messageLabel.font          = [UIFont systemFontOfSize:18]; // Also change font size of method that calculates height of message string in MYSDynamicAlertView
+        self.messageLabel.font          = [UIFont preferredFontForTextStyle:UIFontTextStyleBody]; // Also change font size of method that calculates height of message string in MYSDynamicAlertView
         
         [self.messageLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         [self.messageLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         [self.messageLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self addSubview:self.messageLabel];
         UILabel *messageLabel = self.messageLabel;
-        [messageLabel sizeToFit];
         
-        NSArray* constrs = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[messageLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)];
-        [self addConstraints:constrs];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[messageLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
-        [self.messageLabel addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[messageLabel(200@300)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[titleLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel)]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[messageLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-40-[titleLabel(<=messageLabel)]-[messageLabel]-40-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel,messageLabel)]];
+        //[self.messageLabel addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[messageLabel(200@300)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
     }
     return self;
 }
