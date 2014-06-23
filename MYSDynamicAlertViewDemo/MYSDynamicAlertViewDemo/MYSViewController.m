@@ -23,12 +23,11 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.tossAlert = [[MYSDynamicAlertViewController alloc] init];
     __weak MYSViewController *bself = self;
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Left"; } direction:MYSDynamicAlertViewDirectionLeft];
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Right"; } direction:MYSDynamicAlertViewDirectionRight];
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSDynamicAlertViewDirectionUp];
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSDynamicAlertViewDirectionDown];
+    [self.tossAlert setTitle:@"Ok" dismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSDynamicAlertViewDirectionUp];
+    [self.tossAlert setTitle:@"Cancel" dismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSDynamicAlertViewDirectionDown];
     //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
-    self.tossAlert.message = @"Hello World!";
+    self.tossAlert.message = @"Hello World! ";
+    //self.tossAlert.message = @"Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! Hello World! ";
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,7 +39,7 @@
 - (IBAction)showAlertButtonWasTapped:(id)sender
 {
     [self.tossAlert show];
-    //[[[UIAlertView alloc] initWithTitle:@"hi" message:@"hi" delegate:nil cancelButtonTitle:@"hil" otherButtonTitles:nil, nil] show];
+    //[[[UIAlertView alloc] initWithTitle:@"hi" message:self.tossAlert.message delegate:nil cancelButtonTitle:@"hil" otherButtonTitles:nil, nil] show];
     
 }
 

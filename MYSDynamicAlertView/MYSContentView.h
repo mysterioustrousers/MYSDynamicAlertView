@@ -10,4 +10,5 @@
 
 @interface MYSContentView : UIView
 @property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, assign) CGFloat scrollViewOffset;
 @end
