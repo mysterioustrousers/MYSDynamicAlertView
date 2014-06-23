@@ -99,7 +99,7 @@ typedef void (^ActionBlock)();
     }
     self.view.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.3 animations:^{
-        self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.4];
+        self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.7];
     }];
 }
 
