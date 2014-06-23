@@ -47,12 +47,15 @@
     [self.touchDelegate contentViewEndTap:event];
 }
 
+/*
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+
 {
     // Only scroll when touching contentView
     CGPoint pointOfContact  = [gestureRecognizer locationInView:self];
     pointOfContact          = [self.contentView convertPoint:pointOfContact fromView:self];
     return (CGRectContainsPoint(self.contentView.bounds, pointOfContact));
 }
+ */
 
 @end
