@@ -170,12 +170,12 @@ typedef void (^ActionBlock)();
 
 - (void)contentViewPressed:(id)sender
 {
-//    [self.backDropView snapOut:NO];
+    [self.backDropView snapOut:YES];
 }
 
 - (void)contentViewEndTap:(id)sender
 {
-//    [self.backDropView snapIn:NO];
+    [self.backDropView snapOut:YES];
 }
 
 
