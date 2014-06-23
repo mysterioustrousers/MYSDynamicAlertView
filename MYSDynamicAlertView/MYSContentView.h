@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MYSContentView : UIView
-
+@property (nonatomic, strong) UILabel *messageLabel;
 @end

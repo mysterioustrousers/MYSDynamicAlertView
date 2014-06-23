@@ -7,11 +7,11 @@
 //
 
 #import "MYSViewController.h"
-#import "MYSDynamicAlertView.h"
+#import "MYSDynamicAlertViewController.h"
 
 @interface MYSViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
-@property (nonatomic, strong) MYSDynamicAlertView *tossAlert;
+@property (nonatomic, strong) MYSDynamicAlertViewController *tossAlert;
 
 @end
 
@@ -21,13 +21,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.tossAlert = [[MYSDynamicAlertView alloc] init];
+    self.tossAlert = [[MYSDynamicAlertViewController alloc] init];
     __weak MYSViewController *bself = self;
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Left"; } direction:MYSTossAlertViewDirectionLeft];
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Right"; } direction:MYSTossAlertViewDirectionRight];
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSTossAlertViewDirectionUp];
-    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSTossAlertViewDirectionDown];
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Left"; } direction:MYSDynamicAlertViewDirectionLeft];
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Right"; } direction:MYSDynamicAlertViewDirectionRight];
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSDynamicAlertViewDirectionUp];
+    [self.tossAlert setDismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSDynamicAlertViewDirectionDown];
     //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
+    self.tossAlert.message = @"Hello World!";
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,6 +40,7 @@
 - (IBAction)showAlertButtonWasTapped:(id)sender
 {
     [self.tossAlert show];
+    //[[[UIAlertView alloc] initWithTitle:@"hi" message:@"hi" delegate:nil cancelButtonTitle:@"hil" otherButtonTitles:nil, nil] show];
     
 }
 
