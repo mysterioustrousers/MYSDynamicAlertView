@@ -37,17 +37,14 @@
         
         self.messageLabel.numberOfLines = 0;
         self.messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.messageLabel.font = [UIFont systemFontOfSize:18];
-        //self.messageLabel.preferredMaxLayoutWidth = 200;
+        self.messageLabel.font          = [UIFont systemFontOfSize:18]; // Also change font size of method that calculates height of message string in MYSDynamicAlertView
         
         [self.messageLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         [self.messageLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         [self.messageLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self addSubview:self.messageLabel];
         UILabel *messageLabel = self.messageLabel;
-        //self.messageLabel.backgroundColor = [UIColor blueColor];
         [messageLabel sizeToFit];
-        
         
         NSArray* constrs = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[messageLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)];
         [self addConstraints:constrs];

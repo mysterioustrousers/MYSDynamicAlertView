@@ -51,7 +51,7 @@ typedef void (^ActionBlock)();
     CGFloat height  = 110;
     
     CGSize maximumSize              = CGSizeMake(width - 16, 9999);  // 16 for the edge inserts
-    NSDictionary *stringAttributes  = [NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:15] forKey: NSFontAttributeName];
+    NSDictionary *stringAttributes  = [NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:18] forKey: NSFontAttributeName];
     CGSize expectedLabelSize        = [self.message boundingRectWithSize:maximumSize
                                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                                               attributes:stringAttributes context:nil].size;
