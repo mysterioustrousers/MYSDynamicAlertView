@@ -51,8 +51,15 @@ typedef void (^ActionBlock)();
     CGFloat height  = 110;
     
     CGSize maximumSize              = CGSizeMake(width - 16, 9999);  // 16 for the edge inserts
-    NSDictionary *stringAttributes  = [NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:18] forKey: NSFontAttributeName];
-    CGSize expectedLabelSize        = [self.message boundingRectWithSize:maximumSize
+    // header
+    NSDictionary *stringAttributes  = [NSDictionary dictionaryWithObject:[UIFont preferredFontForTextStyle:UIFontTextStyleHeadline] forKey: NSFontAttributeName];
+    CGSize expectedLabelSize        = [self.alertTitle boundingRectWithSize:maximumSize
+                                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                                              attributes:stringAttributes context:nil].size;
+    height                         += expectedLabelSize.height;
+    // body
+    stringAttributes  = [NSDictionary dictionaryWithObject:[UIFont preferredFontForTextStyle:UIFontTextStyleBody] forKey: NSFontAttributeName];
+    expectedLabelSize        = [self.message boundingRectWithSize:maximumSize
                                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                                               attributes:stringAttributes context:nil].size;
     height                         += expectedLabelSize.height;
@@ -89,6 +96,7 @@ typedef void (^ActionBlock)();
     [self centerView:self.contentView withContantWidth:width height:height];
     self.touchScrollView.contentView    = self.contentView;
     self.contentView.messageLabel.text  = self.message;
+    self.contentView.titleLabel.text    = self.alertTitle;
     
     
     [self sectionDetectionViews];
@@ -290,7 +298,13 @@ typedef void (^ActionBlock)();
 - (void)setMessage:(NSString *)message
 {
     _message                            = message;
-    self.contentView.messageLabel.text  = self.message;
+    self.contentView.messageLabel.text  = message;
+}
+
+- (void)setTitle:(NSString *)title
+{
+    _alertTitle                         = title;
+    self.contentView.titleLabel.text    = title;
 }
 
 
