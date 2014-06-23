@@ -73,7 +73,7 @@ typedef void (^ActionBlock)();
     [self.backDropView snapIn:NO];
     self.backDropView.upLabel.text = self.titleDictionary[@(MYSDynamicAlertViewDirectionUp)];
     self.backDropView.downLabel.text = self.titleDictionary[@(MYSDynamicAlertViewDirectionDown)];
-    
+
     if (self.touchScrollView == nil) {
         self.touchScrollView = [[MYSTouchScrollView alloc] initWithFrame:self.view.bounds];
         self.touchScrollView.layer.cornerRadius = 15;
@@ -108,6 +108,8 @@ typedef void (^ActionBlock)();
     self.view.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.3 animations:^{
         self.view.backgroundColor =[UIColor colorWithWhite:0.0 alpha:0.7];
+    } completion:^(BOOL finished) {
+        [self.backDropView snapOut:YES];
     }];
 }
 
@@ -168,12 +170,12 @@ typedef void (^ActionBlock)();
 
 - (void)contentViewPressed:(id)sender
 {
-    [self.backDropView snapOut:YES];
+//    [self.backDropView snapOut:NO];
 }
 
 - (void)contentViewEndTap:(id)sender
 {
-    [self.backDropView snapIn:YES];
+//    [self.backDropView snapIn:NO];
 }
 
 
@@ -181,15 +183,15 @@ typedef void (^ActionBlock)();
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [self.backDropView snapOut:YES];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self.backDropView snapIn:YES];
-}
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+//{
+//    [self.backDropView snapOut:YES];
+//}
+//
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+//    [self.backDropView snapIn:YES];
+//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -213,7 +215,7 @@ typedef void (^ActionBlock)();
         [self launchWithoffset:offset direction:self.backDropView.direction];
     }
     else {
-        [self.backDropView snapIn:YES];
+//        [self.backDropView snapIn:YES];
     }
 }
 
