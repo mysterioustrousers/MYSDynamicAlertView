@@ -6,9 +6,9 @@
 //
 //
 
-#define CHEVRON_WHITE 0.75
-#define CHEVRON_WHITE_MAX 0.85
-#define CHEVRON_WHITE_MIN 0.55
+#define CHEVRON_WHITE 0.85
+#define CHEVRON_WHITE_MAX 0.95
+#define CHEVRON_WHITE_MIN 0.65
 
 #import "MYSContentView.h"
 #import "MYSDynamicAlertViewController.h"
@@ -37,7 +37,7 @@
         
         self.messageLabel.numberOfLines = 0;
         self.messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.messageLabel.font = [UIFont systemFontOfSize:15];
+        self.messageLabel.font = [UIFont systemFontOfSize:18];
         //self.messageLabel.preferredMaxLayoutWidth = 200;
         
         [self.messageLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];

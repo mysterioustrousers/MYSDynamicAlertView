@@ -50,7 +50,7 @@
             self.upLabel               = [[UILabel alloc] init];
             self.upLabel.textAlignment = NSTextAlignmentCenter;
             self.upLabel.textColor     = [UIColor whiteColor];
-            self.upLabel.font          = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+            self.upLabel.font          = [UIFont boldSystemFontOfSize:21];
             [self addSubview:self.upLabel];
         }
         // Down
@@ -58,7 +58,7 @@
             self.downLabel               = [[UILabel alloc] init];
             self.downLabel.textAlignment = NSTextAlignmentCenter;
             self.downLabel.textColor     = [UIColor whiteColor];
-            self.downLabel.font          = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+            self.downLabel.font          = [UIFont boldSystemFontOfSize:21];
             [self addSubview:self.downLabel];
         }
     }
@@ -163,7 +163,7 @@
     self.downLabel.hidden           = NO;
     
     if (animated) {
-        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:20 options:0
+        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:20 options:0
                          animations:^{
                              self.upLabel.hidden    = NO;
                              self.downLabel.hidden  = NO;
@@ -217,9 +217,9 @@
 {
     CGFloat r, g, b, a;
     if ([c getRed:&r green:&g blue:&b alpha:&a])
-        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
-                               green:MAX(g - 0.2, 0.0)
-                                blue:MAX(b - 0.2, 0.0)
+        return [UIColor colorWithRed:MAX(r - 0.4, 0.0)
+                               green:MAX(g - 0.4, 0.0)
+                                blue:MAX(b - 0.4, 0.0)
                                alpha:a];
     return nil;
 }
