@@ -10,7 +10,6 @@
 #import "MYSDynamicAlertView.h"
 
 @interface MYSChevronView : UIView
-@property (nonatomic, assign) CGFloat topChevronWhite;
-@property (nonatomic, assign) CGFloat bottomChevronWhite;
-@property (nonatomic, assign) MYSDynamicAlertViewDirection *direction;
+@property (nonatomic, assign) MYSDynamicAlertViewDirection direction;
+@property (nonatomic, assign) CGFloat whiteColorLevel;
 @end

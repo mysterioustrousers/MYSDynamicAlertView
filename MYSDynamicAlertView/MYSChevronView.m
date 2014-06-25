@@ -14,28 +14,25 @@
 #define CHEVRON_WHITE_MIN 0.65
 
 
+@interface MYSChevronView ()
+@end
+
 
 @implementation MYSChevronView
-
--(id)initWithFrame:(CGRect)frame {
-    [self setNeedsDisplay];
-    [super initWithFrame:frame];
-}
-
 
 
 - (void)drawRect:(CGRect)rect
 {
+    // Perhaps in the future make the chevron draw more to match the size of rect, but this is fine for what its used for.
     CGFloat width   = 30;
     CGFloat height  = 4;
     CGFloat offset  = 10;
     CGFloat thick   = 6.5;
-    [[UIColor colorWithWhite:self.topChevronWhite alpha:1.0] setStroke];
-    UIBezierPath *chevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2,  offset, width, height) direction:*self.direction];
+    [[UIColor colorWithWhite:self.whiteColorLevel alpha:1.0] setStroke];
+    UIBezierPath *chevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2,  offset, width, height) direction:self.direction];
     [chevronPath setLineWidth:thick];
     [chevronPath stroke];
 }
-
 
 - (UIBezierPath *)chevron:(CGRect)frame direction:(MYSDynamicAlertViewDirection)direction
 {
@@ -68,6 +65,15 @@
 }
 
 
+
+
+#pragma mark - Setter
+
+- (void)setWhiteColorLevel:(CGFloat)whiteColorLevel
+{
+    _whiteColorLevel = whiteColorLevel;
+    [self setNeedsDisplay];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
