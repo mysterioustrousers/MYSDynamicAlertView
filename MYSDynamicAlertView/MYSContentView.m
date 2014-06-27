@@ -116,6 +116,39 @@
     [self setNeedsDisplay];
 }
 
+- (void)bounceChevron:(MYSDynamicAlertViewDirection)direction {
+    if (direction == MYSDynamicAlertViewDirectionUp) {
+        CGFloat damping = 0.5;
+        [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
+            CGFloat x_topChevron = self.topChevron.frame.origin.x;
+            CGFloat y_topChevron =  self.topChevron.frame.origin.y;
+            self.topChevron.center = CGPointMake(x_topChevron, y_topChevron - 10);
+        } completion:^(BOOL finished){
+            [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
+                CGFloat x_topChevron = self.topChevron.frame.origin.x;
+                CGFloat y_topChevron =  self.topChevron.frame.origin.y;
+                self.topChevron.center = CGPointMake(x_topChevron, y_topChevron + 10);
+            }completion:^(BOOL finished){
+            }];
+        }];
+    }
+    else if(direction == MYSDynamicAlertViewDirectionDown) {
+        CGFloat damping = 0.5;
+        [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
+            CGFloat x_bottomChevron = self.topChevron.frame.origin.x;
+            CGFloat y_bottomChevron =  self.topChevron.frame.origin.y;
+            self.bottomChevron.center = CGPointMake(x_bottomChevron, y_bottomChevron + 10);
+        } completion:^(BOOL finished){
+            [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
+                CGFloat x_bottomChevron = self.topChevron.frame.origin.x;
+                CGFloat y_bottomChevron =  self.topChevron.frame.origin.y;
+                self.bottomChevron.center = CGPointMake(x_bottomChevron, y_bottomChevron - 10);
+            }completion:^(BOOL finished){
+            }];
+        }];
+    }
+}
+
 
 
 #pragma mark - private
