@@ -61,7 +61,7 @@
         UILabel *messageLabel = self.messageLabel;
         
         self.topChevron = [[MYSChevronView alloc] init];
-        self.topChevron.backgroundColor =  [UIColor greenColor];
+        self.topChevron.backgroundColor =  [UIColor clearColor];
         self.topChevron.direction = MYSDynamicAlertViewDirectionDown;
         self.topChevron.whiteColorLevel = CHEVRON_WHITE;
         [self addSubview:self.topChevron];
@@ -69,7 +69,7 @@
         self.bottomChevron = [[MYSChevronView alloc] init];
         self.bottomChevron.direction = MYSDynamicAlertViewDirectionUp;
         self.bottomChevron.whiteColorLevel = CHEVRON_WHITE;
-        self.bottomChevron.backgroundColor = [UIColor redColor];
+        self.bottomChevron.backgroundColor = [UIColor clearColor];
         [self addSubview:self.bottomChevron];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[titleLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel)]];
@@ -116,39 +116,45 @@
     [self setNeedsDisplay];
 }
 
+
 - (void)bounceChevron:(MYSDynamicAlertViewDirection)direction {
+    CGFloat damping = 0.2;
+    CGFloat dampingAfterAnimation = 0.5;
+    CGFloat distance = 12;
+    CGFloat duration = 1;
+    CGFloat originalXtopChevron = self.topChevron.center.x;
+    CGFloat originalYtopChevron =  self.topChevron.center.y;
+    CGFloat originalXbottomChevron = self.bottomChevron.center.x;
+    CGFloat originalYBottomChevron =  self.bottomChevron.center.y;
+
     if (direction == MYSDynamicAlertViewDirectionUp) {
-        CGFloat damping = 0.5;
-        [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
-            CGFloat x_topChevron = self.topChevron.frame.origin.x;
-            CGFloat y_topChevron =  self.topChevron.frame.origin.y;
-            self.topChevron.center = CGPointMake(x_topChevron, y_topChevron - 10);
+        
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
+            self.topChevron.center = CGPointMake(originalXtopChevron, originalYtopChevron + distance);
         } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
-                CGFloat x_topChevron = self.topChevron.frame.origin.x;
-                CGFloat y_topChevron =  self.topChevron.frame.origin.y;
-                self.topChevron.center = CGPointMake(x_topChevron, y_topChevron + 10);
-            }completion:^(BOOL finished){
-            }];
+
+        }];
+        
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:0.6 options:0 animations:^{
+            self.topChevron.center = CGPointMake(originalXtopChevron, originalYtopChevron);
+        }completion:^(BOOL finished){
+            
         }];
     }
     else if(direction == MYSDynamicAlertViewDirectionDown) {
-        CGFloat damping = 0.5;
-        [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
-            CGFloat x_bottomChevron = self.topChevron.frame.origin.x;
-            CGFloat y_bottomChevron =  self.topChevron.frame.origin.y;
-            self.bottomChevron.center = CGPointMake(x_bottomChevron, y_bottomChevron + 10);
+        
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
+            self.bottomChevron.center = CGPointMake(originalXbottomChevron, originalYBottomChevron - distance);
         } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
-                CGFloat x_bottomChevron = self.topChevron.frame.origin.x;
-                CGFloat y_bottomChevron =  self.topChevron.frame.origin.y;
-                self.bottomChevron.center = CGPointMake(x_bottomChevron, y_bottomChevron - 10);
-            }completion:^(BOOL finished){
-            }];
+            
+        }];
+        
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:0.6 options:0 animations:^{
+            self.bottomChevron.center = CGPointMake(originalXbottomChevron, originalYBottomChevron);
+        }completion:^(BOOL finished){
         }];
     }
 }
-
 
 
 #pragma mark - private

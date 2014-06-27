@@ -16,4 +16,6 @@
 @interface MYSTouchScrollView : UIScrollView
 @property (nonatomic, strong) MYSContentView                 *contentView;
 @property (nonatomic, strong) id<MYSTouchScrollViewDelegate> touchDelegate;
+@property (nonatomic, strong) UIView              *topHalf;
+@property (nonatomic, strong) UIView              *bottomHalf;
 @end

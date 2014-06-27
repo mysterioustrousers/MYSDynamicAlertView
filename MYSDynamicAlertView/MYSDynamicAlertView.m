@@ -73,11 +73,22 @@ typedef void (^ActionBlock)();
     [self.backDropView snapIn:NO];
     self.backDropView.upLabel.text = self.titleDictionary[@(MYSDynamicAlertViewDirectionUp)];
     self.backDropView.downLabel.text = self.titleDictionary[@(MYSDynamicAlertViewDirectionDown)];
-
+    [self sectionDetectionViews];
     if (self.touchScrollView == nil) {
+        NSLog(@"Top half is,%@", self.topHalf);
+        self.touchScrollView.topHalf = self.topHalf;
+        self.touchScrollView.bottomHalf = self.bottomHalf;
+        NSLog(@"Top half of touchScroll is,%@", self.touchScrollView.topHalf);
+        
         self.touchScrollView = [[MYSTouchScrollView alloc] initWithFrame:self.view.bounds];
+        NSLog(@"Top half is,%@", self.topHalf);
+        self.touchScrollView.topHalf = self.topHalf;
+        self.touchScrollView.bottomHalf = self.bottomHalf;
+        NSLog(@"Top half of touchScroll is,%@", self.touchScrollView.topHalf);
+
         self.touchScrollView.layer.cornerRadius = 15;
         [self.view addSubview:self.touchScrollView];
+        NSLog(@"%@", self.touchScrollView.topHalf);
     }
     self.touchScrollView.delegate                               = self;
     self.touchScrollView.touchDelegate                          = self;
@@ -99,7 +110,7 @@ typedef void (^ActionBlock)();
     self.contentView.titleLabel.text    = self.alertTitle;
     
     
-    [self sectionDetectionViews];
+    
     [self.otherWindow makeKeyAndVisible];
     
     if (self.animator == nil) {
@@ -316,11 +327,13 @@ typedef void (^ActionBlock)();
 - (void)sectionDetectionViews
 {
     if (self.topHalf == nil) {
+        NSLog(@"Top half is nil");
         self.topHalf = [[UIView alloc] init];
         self.topHalf.backgroundColor = [UIColor clearColor];
         self.topHalf.userInteractionEnabled = NO;
         [self.view addSubview:self.topHalf];
         self.topHalf.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLog(@"Top half is %@", self.topHalf);
     }
     if (self.bottomHalf == nil) {
         self.bottomHalf = [[UIView alloc] init];
@@ -329,6 +342,7 @@ typedef void (^ActionBlock)();
         [self.view addSubview:self.bottomHalf];
         self.bottomHalf.translatesAutoresizingMaskIntoConstraints = NO;
     }
+    
     UIView *v       = self.bottomHalf;
     UIView *view    = self.topHalf;
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
