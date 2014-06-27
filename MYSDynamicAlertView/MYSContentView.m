@@ -18,6 +18,10 @@
 @interface MYSContentView ()
 @property (nonatomic, strong) MYSChevronView *topChevron;
 @property (nonatomic, strong) MYSChevronView *bottomChevron;
+@property CGFloat originalXtopChevron;
+@property CGFloat originalYtopChevron;
+@property CGFloat originalXbottomChevron;
+@property CGFloat originalYBottomChevron;
 @end
 
 
@@ -26,6 +30,11 @@
 - (id)initWithFrame:(CGRect)aRect
 {
     if ((self = [super initWithFrame:aRect])) {
+        
+        
+        
+        
+        
         self.userInteractionEnabled = NO;                                               // scrollView deals with touches
         self.backgroundColor        = [UIColor groupTableViewBackgroundColor];
         
@@ -72,6 +81,7 @@
         self.bottomChevron.backgroundColor = [UIColor clearColor];
         [self addSubview:self.bottomChevron];
         
+        
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[titleLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel)]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[messageLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[titleLabel(<=messageLabel)]-[messageLabel]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel,messageLabel)]];
@@ -87,6 +97,10 @@
     CGFloat chevViewHeight  = 25;
     self.topChevron.frame   = CGRectMake(self.bounds.size.width/2 - chevViewWidth/2, self.bounds.origin.y, chevViewWidth, chevViewHeight);
     self.bottomChevron.frame= CGRectMake(self.bounds.size.width/2 - chevViewWidth/2, self.bounds.origin.y + self.bounds.size.height - chevViewHeight, chevViewWidth, chevViewWidth);
+    self.originalXtopChevron = self.topChevron.center.x;
+    self.originalYtopChevron =  self.topChevron.center.y;
+    self.originalXbottomChevron = self.bottomChevron.center.x;
+    self.originalYBottomChevron =  self.bottomChevron.center.y;
 }
 
 - (void)setScrollViewOffset:(CGFloat)scrollViewOffset
@@ -118,42 +132,40 @@
 
 
 - (void)bounceChevron:(MYSDynamicAlertViewDirection)direction {
-    CGFloat damping = 0.2;
-    CGFloat dampingAfterAnimation = 0.5;
+    CGFloat damping = 0.5;
+    CGFloat dampingAfterAnimation = damping;
     CGFloat distance = 12;
-    CGFloat duration = 1;
-    CGFloat originalXtopChevron = self.topChevron.center.x;
-    CGFloat originalYtopChevron =  self.topChevron.center.y;
-    CGFloat originalXbottomChevron = self.bottomChevron.center.x;
-    CGFloat originalYBottomChevron =  self.bottomChevron.center.y;
+    CGFloat duration = 0.5;
+    CGFloat initialVelocity = 0.6;
 
     if (direction == MYSDynamicAlertViewDirectionUp) {
         
-        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
-            self.topChevron.center = CGPointMake(originalXtopChevron, originalYtopChevron + distance);
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialVelocity options:0 animations:^{
+            self.topChevron.center = CGPointMake(self.originalXtopChevron, self.originalYtopChevron + distance);
         } completion:^(BOOL finished){
+            [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:initialVelocity options:0 animations:^{
+                self.topChevron.center = CGPointMake(self.originalXtopChevron, self.originalYtopChevron);
+            }completion:^(BOOL finished){
+                
+            }];
 
         }];
         
-        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:0.6 options:0 animations:^{
-            self.topChevron.center = CGPointMake(originalXtopChevron, originalYtopChevron);
-        }completion:^(BOOL finished){
-            
-        }];
-    }
+            }
     else if(direction == MYSDynamicAlertViewDirectionDown) {
         
-        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.6 options:0 animations:^{
-            self.bottomChevron.center = CGPointMake(originalXbottomChevron, originalYBottomChevron - distance);
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialVelocity options:0 animations:^{
+            self.bottomChevron.center = CGPointMake(self.originalXbottomChevron, self.originalYBottomChevron - distance);
         } completion:^(BOOL finished){
-            
+            [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:initialVelocity options:0 animations:^{
+                self.bottomChevron.center = CGPointMake(self.originalXbottomChevron, self.originalYBottomChevron);
+            }completion:^(BOOL finished){
+                
+            }];
+
         }];
         
-        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:0.6 options:0 animations:^{
-            self.bottomChevron.center = CGPointMake(originalXbottomChevron, originalYBottomChevron);
-        }completion:^(BOOL finished){
-        }];
-    }
+            }
 }
 
 

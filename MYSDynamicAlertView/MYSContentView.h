@@ -13,5 +13,6 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
 @property (nonatomic, assign) CGFloat scrollViewOffset;
+
 - (void)bounceChevron:(MYSDynamicAlertViewDirection)direction;
 @end
