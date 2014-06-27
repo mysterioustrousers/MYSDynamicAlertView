@@ -137,7 +137,7 @@
     CGFloat distance = 12;
     CGFloat duration = 0.5;
     CGFloat initialVelocity = 0.6;
-
+    
     if (direction == MYSDynamicAlertViewDirectionUp) {
         
         [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialVelocity options:0 animations:^{
@@ -145,13 +145,10 @@
         } completion:^(BOOL finished){
             [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:initialVelocity options:0 animations:^{
                 self.topChevron.center = CGPointMake(self.originalXtopChevron, self.originalYtopChevron);
-            }completion:^(BOOL finished){
-                
+            }completion:^(BOOL finished){  
             }];
-
         }];
-        
-            }
+    }
     else if(direction == MYSDynamicAlertViewDirectionDown) {
         
         [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialVelocity options:0 animations:^{
@@ -160,12 +157,9 @@
             [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:initialVelocity options:0 animations:^{
                 self.bottomChevron.center = CGPointMake(self.originalXbottomChevron, self.originalYBottomChevron);
             }completion:^(BOOL finished){
-                
             }];
-
         }];
-        
-            }
+    }
 }
 
 
