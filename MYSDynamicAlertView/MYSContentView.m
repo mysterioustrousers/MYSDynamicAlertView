@@ -12,11 +12,12 @@
 
 #import "MYSContentView.h"
 #import "MYSDynamicAlertView.h"
+#import "MYSChevronView.h"
 
 
 @interface MYSContentView ()
-@property (nonatomic, assign) CGFloat topChevronWhite;
-@property (nonatomic, assign) CGFloat bottomChevronWhite;
+@property (nonatomic, strong) MYSChevronView *topChevron;
+@property (nonatomic, strong) MYSChevronView *bottomChevron;
 @end
 
 
@@ -27,8 +28,6 @@
     if ((self = [super initWithFrame:aRect])) {
         self.userInteractionEnabled = NO;                                               // scrollView deals with touches
         self.backgroundColor        = [UIColor groupTableViewBackgroundColor];
-        self.topChevronWhite        = CHEVRON_WHITE;
-        self.bottomChevronWhite     = CHEVRON_WHITE;
         
         CGFloat height = self.frame.size.height;
         
@@ -61,6 +60,18 @@
         [self addSubview:self.messageLabel];
         UILabel *messageLabel = self.messageLabel;
         
+        self.topChevron = [[MYSChevronView alloc] init];
+        self.topChevron.backgroundColor =  [UIColor greenColor];
+        self.topChevron.direction = MYSDynamicAlertViewDirectionDown;
+        self.topChevron.whiteColorLevel = CHEVRON_WHITE;
+        [self addSubview:self.topChevron];
+        
+        self.bottomChevron = [[MYSChevronView alloc] init];
+        self.bottomChevron.direction = MYSDynamicAlertViewDirectionUp;
+        self.bottomChevron.whiteColorLevel = CHEVRON_WHITE;
+        self.bottomChevron.backgroundColor = [UIColor redColor];
+        [self addSubview:self.bottomChevron];
+        
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[titleLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel)]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[messageLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[titleLabel(<=messageLabel)]-[messageLabel]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel,messageLabel)]];
@@ -69,20 +80,13 @@
     return self;
 }
 
-- (void)drawRect:(CGRect)rect{
-    CGFloat width   = 30;
-    CGFloat height  = 4;
-    CGFloat offset  = 10;
-    CGFloat thick   = 6.5;
-    [[UIColor colorWithWhite:self.topChevronWhite alpha:1.0] setStroke];
-    UIBezierPath *upChevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2,  offset, width, height) direction:MYSDynamicAlertViewDirectionDown];
-    [upChevronPath setLineWidth:thick];
-    [upChevronPath stroke];
-    
-    [[UIColor colorWithWhite:self.bottomChevronWhite alpha:1.0] setStroke];
-    UIBezierPath *downChevronPath = [self chevron:CGRectMake(rect.origin.x + rect.size.width/2 - width/2, rect.size.height - height - offset, width, height) direction:MYSDynamicAlertViewDirectionUp];
-    [downChevronPath setLineWidth:thick];
-    [downChevronPath stroke];
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    CGFloat chevViewWidth   = 50;
+    CGFloat chevViewHeight  = 25;
+    self.topChevron.frame   = CGRectMake(self.bounds.size.width/2 - chevViewWidth/2, self.bounds.origin.y, chevViewWidth, chevViewHeight);
+    self.bottomChevron.frame= CGRectMake(self.bounds.size.width/2 - chevViewWidth/2, self.bounds.origin.y + self.bounds.size.height - chevViewHeight, chevViewWidth, chevViewWidth);
 }
 
 - (void)setScrollViewOffset:(CGFloat)scrollViewOffset
@@ -98,16 +102,16 @@
         darker = CHEVRON_WHITE_MIN;
     
     if (scrollViewOffset > 0) {
-        self.bottomChevronWhite= lighter;
-        self.topChevronWhite   =darker;
+        self.bottomChevron.whiteColorLevel= lighter;
+        self.topChevron.whiteColorLevel   =darker;
     }
     else if (scrollViewOffset < -1) {
-        self.bottomChevronWhite= darker;
-        self.topChevronWhite   = lighter;
+        self.bottomChevron.whiteColorLevel= darker;
+        self.topChevron.whiteColorLevel   = lighter;
     }
     else {
-        self.bottomChevronWhite= CHEVRON_WHITE;
-        self.topChevronWhite   = CHEVRON_WHITE;
+        self.bottomChevron.whiteColorLevel= CHEVRON_WHITE;
+        self.topChevron.whiteColorLevel   = CHEVRON_WHITE;
     }
     [self setNeedsDisplay];
 }
