@@ -61,11 +61,16 @@
         UILabel *messageLabel = self.messageLabel;
         
         self.topChevron = [[MYSChevronView alloc] init];
-        self.topChevron.backgroundColor =  [UIColor redColor];
+        self.topChevron.backgroundColor =  [UIColor greenColor];
         self.topChevron.direction = MYSDynamicAlertViewDirectionDown;
         self.topChevron.whiteColorLevel = CHEVRON_WHITE;
         [self addSubview:self.topChevron];
         
+        self.bottomChevron = [[MYSChevronView alloc] init];
+        self.bottomChevron.direction = MYSDynamicAlertViewDirectionUp;
+        self.bottomChevron.whiteColorLevel = CHEVRON_WHITE;
+        self.bottomChevron.backgroundColor = [UIColor redColor];
+        [self addSubview:self.bottomChevron];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[titleLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titleLabel)]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[messageLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(messageLabel)]];
@@ -81,6 +86,7 @@
     CGFloat chevViewWidth   = 50;
     CGFloat chevViewHeight  = 25;
     self.topChevron.frame   = CGRectMake(self.bounds.size.width/2 - chevViewWidth/2, self.bounds.origin.y, chevViewWidth, chevViewHeight);
+    self.bottomChevron.frame= CGRectMake(self.bounds.size.width/2 - chevViewWidth/2, self.bounds.origin.y + self.bounds.size.height - chevViewHeight, chevViewWidth, chevViewWidth);
 }
 
 - (void)setScrollViewOffset:(CGFloat)scrollViewOffset
