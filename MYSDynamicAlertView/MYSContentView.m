@@ -30,11 +30,6 @@
 - (id)initWithFrame:(CGRect)aRect
 {
     if ((self = [super initWithFrame:aRect])) {
-        
-        
-        
-        
-        
         self.userInteractionEnabled = NO;                                               // scrollView deals with touches
         self.backgroundColor        = [UIColor groupTableViewBackgroundColor];
         
@@ -136,21 +131,23 @@
     CGFloat dampingAfterAnimation = damping;
     CGFloat distance = 12;
     CGFloat duration = 0.5;
-    CGFloat initialVelocity = 0.6;
+    CGFloat initialVelocity = 0.3;
     
     if (direction == MYSDynamicAlertViewDirectionUp) {
         
+                
         [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialVelocity options:0 animations:^{
             self.topChevron.center = CGPointMake(self.originalXtopChevron, self.originalYtopChevron + distance);
         } completion:^(BOOL finished){
+            if (finished) {
             [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:dampingAfterAnimation initialSpringVelocity:initialVelocity options:0 animations:^{
                 self.topChevron.center = CGPointMake(self.originalXtopChevron, self.originalYtopChevron);
-            }completion:^(BOOL finished){  
+            }completion:^(BOOL finished){
             }];
+            }
         }];
     }
     else if(direction == MYSDynamicAlertViewDirectionDown) {
-        
         [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialVelocity options:0 animations:^{
             self.bottomChevron.center = CGPointMake(self.originalXbottomChevron, self.originalYBottomChevron - distance);
         } completion:^(BOOL finished){
