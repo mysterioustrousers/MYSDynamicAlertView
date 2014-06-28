@@ -75,20 +75,15 @@ typedef void (^ActionBlock)();
     self.backDropView.downLabel.text = self.titleDictionary[@(MYSDynamicAlertViewDirectionDown)];
     [self sectionDetectionViews];
     if (self.touchScrollView == nil) {
-        NSLog(@"Top half is,%@", self.topHalf);
         self.touchScrollView.topHalf = self.topHalf;
         self.touchScrollView.bottomHalf = self.bottomHalf;
-        NSLog(@"Top half of touchScroll is,%@", self.touchScrollView.topHalf);
-        
+
         self.touchScrollView = [[MYSTouchScrollView alloc] initWithFrame:self.view.bounds];
-        NSLog(@"Top half is,%@", self.topHalf);
         self.touchScrollView.topHalf = self.topHalf;
         self.touchScrollView.bottomHalf = self.bottomHalf;
-        NSLog(@"Top half of touchScroll is,%@", self.touchScrollView.topHalf);
 
         self.touchScrollView.layer.cornerRadius = 15;
         [self.view addSubview:self.touchScrollView];
-        NSLog(@"%@", self.touchScrollView.topHalf);
     }
     self.touchScrollView.delegate                               = self;
     self.touchScrollView.touchDelegate                          = self;
