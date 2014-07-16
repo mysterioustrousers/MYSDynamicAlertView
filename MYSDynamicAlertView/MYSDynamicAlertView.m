@@ -242,6 +242,8 @@ typedef void (^ActionBlock)();
      ActionBlock block   = NILL(self.blockDictionary[@(direction)]);
     
     __block BOOL isAttached             = NO;
+    __block BOOL hasCompleted           = NO;
+
     __weak MYSDynamicAlertView *bself   = self;
     pushBehavior.action = ^{
         CGRect contentFrame     = bself.contentView.frame;
@@ -249,6 +251,7 @@ typedef void (^ActionBlock)();
         
         BOOL isInTop            = CGRectContainsPoint(bself.topHalf.frame, bself.contentView.center);
         BOOL isInBottom         = CGRectContainsPoint(bself.bottomHalf.frame, bself.contentView.center);
+        
         // Attach the backdrop to the contentView only after it has passed the backdrop on its way out.
         if (!CGRectIntersectsRect(backDropFrame, contentFrame) && ((direction == MYSDynamicAlertViewDirectionUp && !isInBottom) ||
             (direction == MYSDynamicAlertViewDirectionDown && !isInTop))) {
@@ -264,6 +267,12 @@ typedef void (^ActionBlock)();
         if (CGRectIntersectsRect([bself.view.superview convertRect:bself.backDropView.downLabel.frame fromView:bself.backDropView], bself.view.frame) && direction == MYSDynamicAlertViewDirectionDown) {
             return;
         }
+        
+        if (hasCompleted) {
+            return;
+        }
+        
+        hasCompleted = YES;
         
         [UIView animateWithDuration:0.3 animations:^{
             bself.view.backgroundColor = [UIColor clearColor];

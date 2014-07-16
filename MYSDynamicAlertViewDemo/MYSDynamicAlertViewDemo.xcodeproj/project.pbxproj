@@ -212,7 +212,7 @@
 				ORGANIZATIONNAME = "Mysterious Trousers";
 				TargetAttributes = {
 					37F46C8C193FBBEC006C5C15 = {
-						DevelopmentTeam = JXK78JN25R;
+						DevelopmentTeam = G5APH3RPJE;
 					};
 					37F46CB0193FBBEC006C5C15 = {
 						TestTargetID = 37F46C8C193FBBEC006C5C15;
@@ -442,7 +442,7 @@
 				GCC_PREFIX_HEADER = "MYSDynamicAlertViewDemo/MYSDynamicAlertViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "MYSDynamicAlertViewDemo/MYSDynamicAlertViewDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "AF94E23E-1832-44EE-A494-73EAE9C67F54";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -459,7 +459,7 @@
 				GCC_PREFIX_HEADER = "MYSDynamicAlertViewDemo/MYSDynamicAlertViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "MYSDynamicAlertViewDemo/MYSDynamicAlertViewDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "AF94E23E-1832-44EE-A494-73EAE9C67F54";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
