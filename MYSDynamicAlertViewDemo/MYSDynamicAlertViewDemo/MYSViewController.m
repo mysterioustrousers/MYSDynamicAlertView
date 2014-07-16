@@ -23,8 +23,18 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.tossAlert = [[MYSDynamicAlertView alloc] init];
     __weak MYSViewController *bself = self;
-    [self.tossAlert setTitle:@"Ok" dismissBlock:^{ bself.directionLabel.text = @"Up"; } direction:MYSDynamicAlertViewDirectionUp];
-    [self.tossAlert setTitle:@"Cancel" dismissBlock:^{ bself.directionLabel.text = @"Down"; } direction:MYSDynamicAlertViewDirectionDown];
+    [self.tossAlert setTitle:@"Ok" dismissBlock:^
+    {
+        NSLog(@"Up block ran");
+        bself.directionLabel.text = @"Up";
+    }
+                   direction:MYSDynamicAlertViewDirectionUp];
+    [self.tossAlert setTitle:@"Cancel" dismissBlock:^
+    {
+        NSLog(@"Down block ran");
+        bself.directionLabel.text = @"Down";
+    }
+                   direction:MYSDynamicAlertViewDirectionDown];
     //[tossAlert setDismissBlock:nil direction:MYSTossAlertViewDirectionDown]; // can allow down direction with no block
     self.tossAlert.message      = @"We recommend staying on this form until you can verify it's been correctly installed.";
     self.tossAlert.alertTitle   = @"Are you sure?";
